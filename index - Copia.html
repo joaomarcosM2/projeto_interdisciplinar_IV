@@ -7,32 +7,27 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
  <style>
-    /* --- CORREÇÃO CRÍTICA: RESET GLOBAL --- */
+  /* --- CORREÇÃO CRÍTICA: RESET GLOBAL --- */
 /* Isso garante que padding e bordas não aumentem a largura total dos elementos */
 * {
     box-sizing: border-box;
 }
 
-/* CONFIGURAÇÃO DO CORPO PARA HABILITAR ROLAGEM E JAVASCRIPT */
-html {
-    scroll-behavior: smooth;
-    /* Removemos height: 100% daqui para liberar a detecção de rolagem da janela */
-}
-
-body {
+/* CONFIGURAÇÃO DO CORPO RESTAURADA (Para funcionar melhor com o JS e âncoras) */
+html, body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
     background-color: #f8f8f8;
     
-    /* Garante que o corpo ocupe pelo menos a tela toda, mas possa crescer */
-    min-height: 100vh; 
+    /* Restaurado para o padrão original, se houver problemas de scroll, a causa é o iframe */
+    height: 100%; 
     
     width: 100%;
+    scroll-behavior: smooth;
     
-    /* Impede rolagem lateral (tela branca) sem travar a vertical */
+    /* Mantido para a correção da rolagem horizontal indesejada */
     overflow-x: hidden; 
-    position: relative;
 }
 
 /* Variável CSS para a altura do menu fixo (atualizada pelo JS) */
@@ -601,6 +596,8 @@ footer p:last-of-type {
         transition: height 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
     }
 
+    /* ESSA CLASSE SÓ FUNCIONARÁ SE A ROLAGEM FOR DETECTADA.
+       NO GOOGLE SITES, ELA PROVAVELMENTE NÃO VAI FIXAR. */
     .related-content-section.fixed-on-top-small-screens {
         position: fixed;
         top: 0;
@@ -1447,62 +1444,51 @@ footer p:last-of-type {
         <p>© 2025. Todos os direitos reservados.</p>
     </footer>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener('DOMContentLoaded', function() {
     const header = document.querySelector('header');
     const relatedContentSection = document.querySelector('.related-content-section');
     const relatedItemsWrapper = document.querySelector('.related-items-wrapper');
     const relatedItems = document.querySelectorAll('.related-item');
-    const mainContentSection = document.querySelector('.main-content-section');
     const sections = document.querySelectorAll('main section');
     const menuToggle = document.getElementById('menuToggle');
     const relatedItemsFixedContainer = document.querySelector('.related-items-fixed-container');
     
-    let lastScrollY = window.scrollY;
     let isMenuOpen = false;
 
     // --- FUNÇÃO PARA AJUSTAR O PADDING-TOP DO CONTEÚDO PRINCIPAL ---
+    // A função foi simplificada. O padding só é necessário quando o menu hambúrguer é aberto no mobile.
     function adjustMainContentPadding() {
         let calculatedPadding = 0;
-        // DOBRAMOS O VALOR DE extraPadding AQUI
-        const extraPadding = 80; // DOBRADO: 40px * 2 = 80px. (Espaço extra abaixo do menu fixo)
-
-        // Se o menu está fixo em telas pequenas/médias
-        if (window.innerWidth < 1020 && relatedContentSection.classList.contains('fixed-on-top-small-screens')) {
-            calculatedPadding = relatedContentSection.offsetHeight + extraPadding;
-        } else if (window.innerWidth >= 1020) {
-            // Para desktop (>= 1020px), onde o menu lateral é 'sticky' via CSS.
-            // O JS não deve aplicar padding-top aqui para evitar reflows desnecessários.
-            // O padding-top do main-content-section será gerenciado pelo CSS base.
+        
+        // Se o menu hambúrguer estiver aberto (e estivermos em mobile/tablet)
+        if (window.innerWidth < 1020 && relatedItemsFixedContainer.classList.contains('open')) {
+            // Usa a altura da barra do menu horizontal + um pequeno espaçamento
+            calculatedPadding = relatedContentSection.offsetHeight + 10; 
+        } else {
+            // Remove o padding para que o CSS base assuma o controle.
             calculatedPadding = 0; 
         }
 
-        // Atualiza a variável CSS, o navegador lida com a transição.
+        // Atualiza a variável CSS.
         document.documentElement.style.setProperty('--fixed-menu-offset', `${calculatedPadding}px`);
-        // console.log(`[adjustPadding] --fixed-menu-offset: ${calculatedPadding}px`);
     }
 
     // --- LÓGICA DO MENU HAMBÚRGUER (MOBILE) ---
     function setupMenuToggleListener() {
-        // Ativa/Desativa o listener do hambúrguer apenas quando a tela é mobile (< 750px)
         if (window.innerWidth < 750 && menuToggle && relatedItemsFixedContainer) {
-            // Adiciona o listener apenas se ele ainda não foi adicionado
             if (!menuToggle.hasAttribute('data-listener-added')) {
                 menuToggle.addEventListener('click', handleMenuToggleClick);
                 menuToggle.setAttribute('data-listener-added', 'true');
             }
         } else {
-            // Remove o listener se a tela não for mobile e ele estiver adicionado
             if (menuToggle && menuToggle.hasAttribute('data-listener-added')) {
                 menuToggle.removeEventListener('click', handleMenuToggleClick);
                 menuToggle.removeAttribute('data-listener-added');
-                // Garante que o menu esteja fechado e com display none ao sair do modo mobile
                 isMenuOpen = false;
                 relatedItemsFixedContainer.classList.remove('open');
-                // Limpar todos os estilos inline para que o CSS de tablet/desktop assuma
+                // Limpa estilos inline ao sair do modo mobile
                 relatedItemsFixedContainer.style.maxHeight = ''; 
                 relatedItemsFixedContainer.style.display = '';
-                relatedItemsFixedContainer.style.opacity = '';
-                relatedItemsFixedContainer.style.pointerEvents = '';
             }
         }
     }
@@ -1511,87 +1497,51 @@ footer p:last-of-type {
         isMenuOpen = !isMenuOpen;
         
         if (isMenuOpen) {
-            // Exibe o container para permitir transição, ele já está posicionado no CSS
             relatedItemsFixedContainer.style.display = 'flex'; 
-            relatedItemsFixedContainer.offsetWidth; // Força o reflow para a transição
+            relatedItemsFixedContainer.offsetWidth; 
             relatedItemsFixedContainer.classList.add('open');
-            // MaxHeight para o overflow-y se houver muitos itens (embora seja horizontal)
-            // No caso de menu horizontal, maxHeight será a altura da barra do menu.
-            relatedItemsFixedContainer.style.maxHeight = `${relatedContentSection.offsetHeight}px`; // Apenas a altura da barra
+            // Altura da barra do menu
+            relatedItemsFixedContainer.style.maxHeight = `${relatedContentSection.offsetHeight}px`; 
         } else {
             relatedItemsFixedContainer.classList.remove('open');
             relatedItemsFixedContainer.style.maxHeight = '0';
             setTimeout(() => {
                 relatedItemsFixedContainer.style.display = 'none';
-            }, 300); // Deve corresponder à duração da transição CSS
+            }, 300);
         }
-        adjustMainContentPadding(); // Ajusta o padding sempre que o menu hambúrguer é clicado
+        adjustMainContentPadding();
     }
 
-    // --- LÓGICA DE ESCONDER CABEÇALHO E FIXAR MENU LATERAL ---
-    function handleScroll() {
-        const currentScrollY = window.scrollY;
-        // Esconder/Mostrar Cabeçalho (Header)
-        if (currentScrollY > lastScrollY && currentScrollY > header.offsetHeight * 2) {
-            if (!header.classList.contains('hidden-on-scroll')) {
-                header.classList.add('hidden-on-scroll');
-            }
-        } else if (currentScrollY < lastScrollY || currentScrollY <= 0) {
-            if (header.classList.contains('hidden-on-scroll')) {
-                header.classList.remove('hidden-on-scroll');
-            }
-        }
-        lastScrollY = currentScrollY;
-
-        // Fixação do Menu Lateral (related-content-section)
-        const headerBottom = header.offsetHeight; // Altura do header
-        const shouldBeFixed = currentScrollY > headerBottom; // Se já passou o header
-
-        // Lógica de fixação para telas menores que 1020px (mobile e tablet)
-        if (window.innerWidth < 1020) { 
-            if (shouldBeFixed) {
-                if (!relatedContentSection.classList.contains('fixed-on-top-small-screens')) {
-                    relatedContentSection.classList.add('fixed-on-top-small-screens');
-                    adjustMainContentPadding(); // Ajusta padding ao fixar
-                }
-            } else {
-                if (relatedContentSection.classList.contains('fixed-on-top-small-screens')) {
-                    relatedContentSection.classList.remove('fixed-on-top-small-screens');
-                    adjustMainContentPadding(); // Ajusta padding ao desfixar
-                }
-            }
-        } else { // Para telas maiores ou iguais a 1020px (desktop, menu sticky via CSS)
-            // Garante que a classe de fixação JS seja removida se o menu não deve estar fixo pelo JS
-            if (relatedContentSection.classList.contains('fixed-on-top-small-screens')) {
-                relatedContentSection.classList.remove('fixed-on-top-small-screens');
-                adjustMainContentPadding(); // Remove padding inline ao desfixar, caso tenha sido aplicado
-            }
-            // Em desktop, o padding-top é gerenciado pelo CSS base do main-content-section.
-            // O JS não deve aplicar padding-top aqui para evitar reflows.
-        }
-    }
+    // --- LÓGICA DE ESCONDER CABEÇALHO (REMOVIDA) ---
+    // A função handleScroll() foi removida.
+    // O recurso de esconder o header e fixar o menu dependem de window.scrollY e não funcionarão.
 
     // --- IntersectionObserver para Destaque da Seção Ativa e Rolagem Horizontal ---
     const observerOptions = {
         root: null,
-        rootMargin: '-20% 0px -20% 0px',
-        threshold: 0 // Threshold 0 é ok para esse uso
+        // Ajustamos a margem de intersecção para detectar a seção um pouco antes de chegar ao topo
+        rootMargin: '-10% 0px -60% 0px', 
+        threshold: 0 
     };
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
+                // Remove a classe 'active' de todos
                 relatedItems.forEach(item => {
                     item.classList.remove('active');
                 });
+                
+                // Adiciona 'active' ao item correspondente
                 const activeNavItem = document.querySelector(`.related-item[data-section="${entry.target.id}"]`);
                 if (activeNavItem) {
                     activeNavItem.classList.add('active');
-                    // Rolagem automática horizontal para o item ativo (apenas em telas horizontais)
-                    // Ativa apenas para mobile e tablet (onde o menu é horizontal)
+                    
+                    // Rolagem automática horizontal para o item ativo (apenas em mobile/tablet)
                     if (window.innerWidth < 1020) { 
                         const itemRect = activeNavItem.getBoundingClientRect();
                         const wrapperRect = relatedItemsWrapper.getBoundingClientRect();
+                        // Centraliza o item
                         const scrollLeft = activeNavItem.offsetLeft - (wrapperRect.width / 2) + (itemRect.width / 2);
                         relatedItemsWrapper.scrollTo({
                             left: scrollLeft,
@@ -1607,79 +1557,46 @@ footer p:last-of-type {
         observer.observe(section);
     });
 
-    // --- ROLAGEM SUAVE AO CLICAR NOS ITENS DO MENU ---
+    // --- ROLAGEM DOS BOTÕES (RESTAURADA PARA COMPORTAMENTO NATIVO) ---
     relatedItems.forEach(item => {
         item.addEventListener('click', function(event) {
-            event.preventDefault();
-            const targetSectionId = this.dataset.section;
-            const targetSection = document.getElementById(targetSectionId);
-            if (targetSection) {
-                let offset = 0;
-                // Calcule o offset com base na altura da barra de menu fixada
-                if (relatedContentSection.classList.contains('fixed-on-top-small-screens')) {
-                    // DOBRAMOS O VALOR DO OFFSET AQUI
-                    offset = relatedContentSection.offsetHeight + 20; // DOBRADO: 10px * 2 = 20px. (Adicione um pouco de espaçamento)
-                } else if (window.innerWidth >= 1020) { // Desktop (menu sticky)
-                    // Em desktop, o offset para rolagem suave deve levar em conta o header
-                    // e a posição do menu sticky.
-                    if (!header.classList.contains('hidden-on-scroll')) {
-                        // DOBRAMOS O VALOR DO OFFSET AQUI
-                        offset = header.offsetHeight + 40; // DOBRADO: 20px * 2 = 40px. (Se o header está visível)
-                    } else {
-                        offset = 0; // Se o header está escondido, o sticky menu ajusta.
-                    }
-                }
-                
-                // Fechar o menu hambúrguer após o clique (apenas para mobile)
-                if (window.innerWidth < 750 && isMenuOpen) {
-                    isMenuOpen = false;
-                    relatedItemsFixedContainer.classList.remove('open');
-                    relatedItemsFixedContainer.style.maxHeight = '0';
-                    setTimeout(() => {
-                        relatedItemsFixedContainer.style.display = 'none';
-                    }, 300);
-                }
-                
-                window.scrollTo({
-                    top: targetSection.offsetTop - offset,
-                    behavior: 'smooth'
-                });
+            // Removemos event.preventDefault() e window.scrollTo().
+            // Isso permite que o navegador use o link de âncora nativo (href="#id").
+            // O fechamento do menu deve ser feito ANTES que a rolagem nativa ocorra.
+            
+            // Fechar o menu hambúrguer após o clique (apenas para mobile)
+            if (window.innerWidth < 750 && isMenuOpen) {
+                isMenuOpen = false;
+                relatedItemsFixedContainer.classList.remove('open');
+                relatedItemsFixedContainer.style.maxHeight = '0';
+                // Removemos o setTimeout para não interferir na rolagem
+                relatedItemsFixedContainer.style.display = 'none';
             }
         });
     });
 
     // --- Chamadas Iniciais e Listeners ---
-    // Adicionar o listener de scroll
-    window.addEventListener('scroll', handleScroll); 
+    // Removemos window.addEventListener('scroll', handleScroll);
     
     // Listener para redimensionamento da janela
     window.addEventListener('resize', () => {
-        // Reavalia o estado de fixação, cabeçalho e padding
-        handleScroll();
+        // Removemos handleScroll()
         setupMenuToggleListener();
-        adjustMainContentPadding(); // Reajusta padding após redimensionamento
-
-        // CORREÇÃO: Limpar estilos inline do JS para que o CSS assuma o controle.
-        // Isso é crucial para evitar que o JS de mobile sobrescreva o CSS de tablet/desktop.
+        adjustMainContentPadding();
+        
+        // Limpar estilos inline do JS para que o CSS assuma o controle.
         if (window.innerWidth >= 750) {
             relatedItemsFixedContainer.style.maxHeight = '';
             relatedItemsFixedContainer.style.display = '';
             relatedItemsFixedContainer.classList.remove('open');
             isMenuOpen = false;
-            // Limpar posições e larguras também se tiverem sido definidas inline em mobile
-            relatedItemsFixedContainer.style.position = ''; 
-            relatedItemsFixedContainer.style.top = '';
-            relatedItemsFixedContainer.style.left = '';
-            relatedItemsFixedContainer.style.width = '';
-            relatedItemsFixedContainer.style.opacity = '';
-            relatedItemsFixedContainer.style.pointerEvents = '';
         }
     });
 
-    // Chamadas iniciais para garantir que o estado inicial esteja correto na carga da página
-    handleScroll(); // Verifica fixação e padding na carga da página
-    setupMenuToggleListener(); // Configura o listener do hambúrguer
-    adjustMainContentPadding(); // Garante o padding inicial
+    // Chamadas iniciais
+    // Removemos handleScroll();
+    setupMenuToggleListener();
+    adjustMainContentPadding();
     
     // Ativa o primeiro item do menu se nenhum estiver ativo na carga
     if (sections.length > 0 && !document.querySelector('.related-item.active')) {
