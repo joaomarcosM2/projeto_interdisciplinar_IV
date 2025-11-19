@@ -1247,6 +1247,31 @@ footer p:last-of-type {
         padding: 0 12px 0 8px;
     }
 }
+
+/* --- AJUSTE EXTRA PARA TELAS MUITO PEQUENAS (< 574px) --- */
+@media (max-width: 573px) {
+    /* O main-content-section já tem padding-left/right de 20px no mobile (< 750px).
+    Vamos garantir que o alert-cards-container use toda a largura restante.
+    */
+    .alert-cards-container {
+        /* Remove o gap horizontal entre as colunas, pois elas serão empilhadas em largura total */
+        gap: 0; 
+        /* Centraliza os itens para garantir que o contêiner não cause overflow */
+        justify-content: center;
+        /* Adiciona um espaçamento vertical maior entre os cards */
+        flex-direction: column;
+        align-items: center; 
+    }
+
+    /* Força as colunas a terem 95% da largura da tela, 
+       ajustando-se às margens do texto (que tem ~90% de largura visual) */
+    .alert-column {
+        width: 95%; /* Ocupa quase toda a largura para alinhamento com o texto */
+        min-width: unset; /* Remove o min-width que pode limitar */
+        max-width: unset; /* Remove o max-width */
+        margin-bottom: 20px; /* Adiciona espaço entre as colunas empilhadas */
+    }
+}
  </style>
 
 </head>
