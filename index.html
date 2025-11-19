@@ -7,16 +7,16 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
  <style>
-    /* --- CORREÇÃO CRÍTICA: RESET GLOBAL --- */
+/* --- CORREÇÃO CRÍTICA: RESET GLOBAL --- */
 /* Isso garante que padding e bordas não aumentem a largura total dos elementos */
 * {
     box-sizing: border-box;
 }
 
-/* CONFIGURAÇÃO DO CORPO PARA HABILITAR ROLAGEM E JAVASCRIPT */
+/* CONFIGURAÇÃO DO CORPO RESTAURADA (Libera a rolagem para o JS) */
 html {
     scroll-behavior: smooth;
-    /* Removemos height: 100% daqui para liberar a detecção de rolagem da janela */
+    /* Removemos height: 100% e overflow daqui para liberar a detecção de rolagem da janela */
 }
 
 body {
@@ -25,13 +25,14 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f8f8f8;
     
-    /* Garante que o corpo ocupe pelo menos a tela toda, mas possa crescer */
+    /* Garante que o corpo ocupe pelo menos a tela toda, mas possa crescer (Libera window.scrollY) */
     min-height: 100vh; 
     
     width: 100%;
     
     /* Impede rolagem lateral (tela branca) sem travar a vertical */
     overflow-x: hidden; 
+    
     position: relative;
 }
 
@@ -1227,10 +1228,12 @@ footer p:last-of-type {
 
 /* Ajuste do botão para telas menores */
 @media (max-width: 768px) {
+    /* CORREÇÃO APLICADA: Move o botão para cima para não ser escondido pelas barras do navegador. */
     .feedback-button-container {
-        bottom: 15px;
+        bottom: 60px; 
         right: 15px;
     }
+    
     .feedback-button {
         width: 45px;
         height: 45px;
