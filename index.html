@@ -7,16 +7,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
  <style>
-/* --- CORREÇÃO CRÍTICA: RESET GLOBAL --- */
-/* Isso garante que padding e bordas não aumentem a largura total dos elementos */
+/* --- RESET GLOBAL --- */
 * {
     box-sizing: border-box;
 }
 
-/* CONFIGURAÇÃO DO CORPO RESTAURADA (Libera a rolagem para o JS) */
 html {
     scroll-behavior: smooth;
-    /* Removemos height: 100% e overflow daqui para liberar a detecção de rolagem da janela */
 }
 
 body {
@@ -24,46 +21,37 @@ body {
     padding: 0;
     font-family: Arial, sans-serif;
     background-color: #f8f8f8;
-    
-    /* Garante que o corpo ocupe pelo menos a tela toda, mas possa crescer (Libera window.scrollY) */
     min-height: 100vh; 
-    
     width: 100%;
-    
-    /* Impede rolagem lateral (tela branca) sem travar a vertical */
     overflow-x: hidden; 
-    
     position: relative;
 }
 
 /* Variável CSS para a altura do menu fixo (atualizada pelo JS) */
 :root {
-    --fixed-menu-offset: 0px; /* Valor padrão para offset do conteúdo principal */
+    --fixed-menu-offset: 0px; 
 }
 
 /* -------------------- NOVAS CLASSES PARA O JAVASCRIPT -------------------- */
-/* Classe para esconder cabeçalho e título ao rolar */
 .hidden-on-scroll {
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-100%); /* Move para cima para sair da tela */
-    transition: all 0.3s ease-out; /* Adiciona uma transição suave */
-    pointer-events: none; /* Impede cliques em elementos escondidos */
+    transform: translateY(-100%); 
+    transition: all 0.3s ease-out; 
+    pointer-events: none; 
 }
 
-/* Classe para fixar o menu horizontal em telas pequenas */
 .fixed-on-top-small-screens {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 999; /* Alto z-index para ficar acima de outros conteúdos */
-    background-color: #fff; /* Adicione uma cor de fundo sólida para o menu fixo */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Sombra para destacar */
-    border-radius: 0; /* Remove bordas arredondadas ao fixar no topo */
+    z-index: 999; 
+    background-color: #fff; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+    border-radius: 0; 
 }
 
-/* Garante que os elementos que podem ser escondidos tenham transição */
 header,
 .related-content-section h2 {
     transition: all 0.3s ease-out;
@@ -81,7 +69,7 @@ header {
     background-size: cover;
     background-position: center;
     color: #ffffff;
-    width: 100%; /* Garante largura total */
+    width: 100%; 
 }
 
 .logo-container {
@@ -195,14 +183,20 @@ header {
     display: none;
 }
 
+/* --- CORREÇÃO AQUI: Main Content Section --- */
 .main-content-section {
     flex-grow: 1;
     padding: 160px;
     width: calc(100% - 270px);
-    min-height: 2000px;
+    
+    /* CORREÇÃO 1: Removemos min-height: 2000px para corrigir o rodapé */
+    min-height: auto; 
+    
     margin-left: 0;
     padding-top: var(--fixed-menu-offset, 160px);
-    transition: padding-top 0.3s ease;
+    
+    /* CORREÇÃO 2: Removemos a transição do padding para evitar o "pulo" */
+    /* transition: padding-top 0.3s ease; REMOVIDO */
 }
 
 .main-content-section section:not(:first-child) {
@@ -456,7 +450,7 @@ footer {
     text-align: center;
     font-size: 0.9em;
     margin-top: 30px;
-    width: 100%; /* Garante largura total */
+    width: 100%; 
     overflow-x: hidden;
 }
 
@@ -472,7 +466,7 @@ footer a {
     transition: color 0.3s ease, transform 0.2s ease;
     display: inline-flex;
     align-items: center;
-    white-space: nowrap; /* Cuidado: isso será alterado no mobile */
+    white-space: nowrap; 
 }
 
 footer a:hover {
@@ -693,8 +687,8 @@ footer p:last-of-type {
 
     .main-content-section {
         padding-top: var(--fixed-menu-offset, 40px);
-        padding-left: 20px; /* Ajustado para melhor visualização */
-        padding-right: 20px; /* Ajustado para melhor visualização */
+        padding-left: 20px; 
+        padding-right: 20px; 
         width: 100%;
         margin-left: 0;
         min-height: unset;
@@ -706,7 +700,6 @@ footer p:last-of-type {
         padding-right: 20px;
     }
     
-    /* Ajuste do Rodapé para Mobile: Permite quebra de linha */
     footer a {
         white-space: normal;
         margin-bottom: 10px;
@@ -922,7 +915,7 @@ footer p:last-of-type {
         max-width: unset;
         margin-right: 0;
         padding: 30px;
-        min-height: 2000px;
+        /* Removido min-height fixo também nas media queries se houver, mas o CSS base já cuida disso */
         padding-top: var(--fixed-menu-offset, 100px);
     }
     .alert-cards-container {
@@ -1226,9 +1219,7 @@ footer p:last-of-type {
     margin-left: 0;
 }
 
-/* Ajuste do botão para telas menores */
 @media (max-width: 768px) {
-    /* CORREÇÃO APLICADA: Move o botão para cima para não ser escondido pelas barras do navegador. */
     .feedback-button-container {
         bottom: 60px; 
         right: 15px;
@@ -1248,28 +1239,19 @@ footer p:last-of-type {
     }
 }
 
-/* --- AJUSTE EXTRA PARA TELAS MUITO PEQUENAS (< 574px) --- */
 @media (max-width: 573px) {
-    /* O main-content-section já tem padding-left/right de 20px no mobile (< 750px).
-    Vamos garantir que o alert-cards-container use toda a largura restante.
-    */
     .alert-cards-container {
-        /* Remove o gap horizontal entre as colunas, pois elas serão empilhadas em largura total */
         gap: 0; 
-        /* Centraliza os itens para garantir que o contêiner não cause overflow */
         justify-content: center;
-        /* Adiciona um espaçamento vertical maior entre os cards */
         flex-direction: column;
         align-items: center; 
     }
 
-    /* Força as colunas a terem 95% da largura da tela, 
-       ajustando-se às margens do texto (que tem ~90% de largura visual) */
     .alert-column {
-        width: 95%; /* Ocupa quase toda a largura para alinhamento com o texto */
-        min-width: unset; /* Remove o min-width que pode limitar */
-        max-width: unset; /* Remove o max-width */
-        margin-bottom: 20px; /* Adiciona espaço entre as colunas empilhadas */
+        width: 95%; 
+        min-width: unset; 
+        max-width: unset; 
+        margin-bottom: 20px; 
     }
 }
  </style>
@@ -1491,42 +1473,35 @@ footer p:last-of-type {
     // --- FUNÇÃO PARA AJUSTAR O PADDING-TOP DO CONTEÚDO PRINCIPAL ---
     function adjustMainContentPadding() {
         let calculatedPadding = 0;
-        // DOBRAMOS O VALOR DE extraPadding AQUI
-        const extraPadding = 80; // DOBRADO: 40px * 2 = 80px. (Espaço extra abaixo do menu fixo)
+        
+        // CORREÇÃO 3: Reduzi o extraPadding para evitar espaços bruscos
+        const extraPadding = 20; 
 
         // Se o menu está fixo em telas pequenas/médias
         if (window.innerWidth < 1020 && relatedContentSection.classList.contains('fixed-on-top-small-screens')) {
             calculatedPadding = relatedContentSection.offsetHeight + extraPadding;
         } else if (window.innerWidth >= 1020) {
-            // Para desktop (>= 1020px), onde o menu lateral é 'sticky' via CSS.
-            // O JS não deve aplicar padding-top aqui para evitar reflows desnecessários.
-            // O padding-top do main-content-section será gerenciado pelo CSS base.
+            // Para desktop, onde o menu lateral é 'sticky', mantemos 0 para não conflitar com o CSS
             calculatedPadding = 0; 
         }
 
-        // Atualiza a variável CSS, o navegador lida com a transição.
+        // Atualiza a variável CSS
         document.documentElement.style.setProperty('--fixed-menu-offset', `${calculatedPadding}px`);
-        // console.log(`[adjustPadding] --fixed-menu-offset: ${calculatedPadding}px`);
     }
 
     // --- LÓGICA DO MENU HAMBÚRGUER (MOBILE) ---
     function setupMenuToggleListener() {
-        // Ativa/Desativa o listener do hambúrguer apenas quando a tela é mobile (< 750px)
         if (window.innerWidth < 750 && menuToggle && relatedItemsFixedContainer) {
-            // Adiciona o listener apenas se ele ainda não foi adicionado
             if (!menuToggle.hasAttribute('data-listener-added')) {
                 menuToggle.addEventListener('click', handleMenuToggleClick);
                 menuToggle.setAttribute('data-listener-added', 'true');
             }
         } else {
-            // Remove o listener se a tela não for mobile e ele estiver adicionado
             if (menuToggle && menuToggle.hasAttribute('data-listener-added')) {
                 menuToggle.removeEventListener('click', handleMenuToggleClick);
                 menuToggle.removeAttribute('data-listener-added');
-                // Garante que o menu esteja fechado e com display none ao sair do modo mobile
                 isMenuOpen = false;
                 relatedItemsFixedContainer.classList.remove('open');
-                // Limpar todos os estilos inline para que o CSS de tablet/desktop assuma
                 relatedItemsFixedContainer.style.maxHeight = ''; 
                 relatedItemsFixedContainer.style.display = '';
                 relatedItemsFixedContainer.style.opacity = '';
@@ -1539,21 +1514,18 @@ footer p:last-of-type {
         isMenuOpen = !isMenuOpen;
         
         if (isMenuOpen) {
-            // Exibe o container para permitir transição, ele já está posicionado no CSS
             relatedItemsFixedContainer.style.display = 'flex'; 
-            relatedItemsFixedContainer.offsetWidth; // Força o reflow para a transição
+            relatedItemsFixedContainer.offsetWidth; 
             relatedItemsFixedContainer.classList.add('open');
-            // MaxHeight para o overflow-y se houver muitos itens (embora seja horizontal)
-            // No caso de menu horizontal, maxHeight será a altura da barra do menu.
-            relatedItemsFixedContainer.style.maxHeight = `${relatedContentSection.offsetHeight}px`; // Apenas a altura da barra
+            relatedItemsFixedContainer.style.maxHeight = `${relatedContentSection.offsetHeight}px`; 
         } else {
             relatedItemsFixedContainer.classList.remove('open');
             relatedItemsFixedContainer.style.maxHeight = '0';
             setTimeout(() => {
                 relatedItemsFixedContainer.style.display = 'none';
-            }, 300); // Deve corresponder à duração da transição CSS
+            }, 300); 
         }
-        adjustMainContentPadding(); // Ajusta o padding sempre que o menu hambúrguer é clicado
+        adjustMainContentPadding(); 
     }
 
     // --- LÓGICA DE ESCONDER CABEÇALHO E FIXAR MENU LATERAL ---
@@ -1571,39 +1543,35 @@ footer p:last-of-type {
         }
         lastScrollY = currentScrollY;
 
-        // Fixação do Menu Lateral (related-content-section)
-        const headerBottom = header.offsetHeight; // Altura do header
-        const shouldBeFixed = currentScrollY > headerBottom; // Se já passou o header
+        // Fixação do Menu Lateral
+        const headerBottom = header.offsetHeight; 
+        const shouldBeFixed = currentScrollY > headerBottom; 
 
-        // Lógica de fixação para telas menores que 1020px (mobile e tablet)
         if (window.innerWidth < 1020) { 
             if (shouldBeFixed) {
                 if (!relatedContentSection.classList.contains('fixed-on-top-small-screens')) {
                     relatedContentSection.classList.add('fixed-on-top-small-screens');
-                    adjustMainContentPadding(); // Ajusta padding ao fixar
+                    adjustMainContentPadding(); 
                 }
             } else {
                 if (relatedContentSection.classList.contains('fixed-on-top-small-screens')) {
                     relatedContentSection.classList.remove('fixed-on-top-small-screens');
-                    adjustMainContentPadding(); // Ajusta padding ao desfixar
+                    adjustMainContentPadding(); 
                 }
             }
-        } else { // Para telas maiores ou iguais a 1020px (desktop, menu sticky via CSS)
-            // Garante que a classe de fixação JS seja removida se o menu não deve estar fixo pelo JS
+        } else { 
             if (relatedContentSection.classList.contains('fixed-on-top-small-screens')) {
                 relatedContentSection.classList.remove('fixed-on-top-small-screens');
-                adjustMainContentPadding(); // Remove padding inline ao desfixar, caso tenha sido aplicado
+                adjustMainContentPadding(); 
             }
-            // Em desktop, o padding-top é gerenciado pelo CSS base do main-content-section.
-            // O JS não deve aplicar padding-top aqui para evitar reflows.
         }
     }
 
-    // --- IntersectionObserver para Destaque da Seção Ativa e Rolagem Horizontal ---
+    // --- IntersectionObserver ---
     const observerOptions = {
         root: null,
         rootMargin: '-20% 0px -20% 0px',
-        threshold: 0 // Threshold 0 é ok para esse uso
+        threshold: 0 
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -1615,8 +1583,6 @@ footer p:last-of-type {
                 const activeNavItem = document.querySelector(`.related-item[data-section="${entry.target.id}"]`);
                 if (activeNavItem) {
                     activeNavItem.classList.add('active');
-                    // Rolagem automática horizontal para o item ativo (apenas em telas horizontais)
-                    // Ativa apenas para mobile e tablet (onde o menu é horizontal)
                     if (window.innerWidth < 1020) { 
                         const itemRect = activeNavItem.getBoundingClientRect();
                         const wrapperRect = relatedItemsWrapper.getBoundingClientRect();
@@ -1643,22 +1609,16 @@ footer p:last-of-type {
             const targetSection = document.getElementById(targetSectionId);
             if (targetSection) {
                 let offset = 0;
-                // Calcule o offset com base na altura da barra de menu fixada
                 if (relatedContentSection.classList.contains('fixed-on-top-small-screens')) {
-                    // DOBRAMOS O VALOR DO OFFSET AQUI
-                    offset = relatedContentSection.offsetHeight + 20; // DOBRADO: 10px * 2 = 20px. (Adicione um pouco de espaçamento)
-                } else if (window.innerWidth >= 1020) { // Desktop (menu sticky)
-                    // Em desktop, o offset para rolagem suave deve levar em conta o header
-                    // e a posição do menu sticky.
+                    offset = relatedContentSection.offsetHeight + 20; 
+                } else if (window.innerWidth >= 1020) { 
                     if (!header.classList.contains('hidden-on-scroll')) {
-                        // DOBRAMOS O VALOR DO OFFSET AQUI
-                        offset = header.offsetHeight + 40; // DOBRADO: 20px * 2 = 40px. (Se o header está visível)
+                        offset = header.offsetHeight + 40; 
                     } else {
-                        offset = 0; // Se o header está escondido, o sticky menu ajusta.
+                        offset = 0; 
                     }
                 }
                 
-                // Fechar o menu hambúrguer após o clique (apenas para mobile)
                 if (window.innerWidth < 750 && isMenuOpen) {
                     isMenuOpen = false;
                     relatedItemsFixedContainer.classList.remove('open');
@@ -1676,25 +1636,19 @@ footer p:last-of-type {
         });
     });
 
-    // --- Chamadas Iniciais e Listeners ---
-    // Adicionar o listener de scroll
+    // --- Chamadas Iniciais ---
     window.addEventListener('scroll', handleScroll); 
     
-    // Listener para redimensionamento da janela
     window.addEventListener('resize', () => {
-        // Reavalia o estado de fixação, cabeçalho e padding
         handleScroll();
         setupMenuToggleListener();
-        adjustMainContentPadding(); // Reajusta padding após redimensionamento
+        adjustMainContentPadding(); 
 
-        // CORREÇÃO: Limpar estilos inline do JS para que o CSS assuma o controle.
-        // Isso é crucial para evitar que o JS de mobile sobrescreva o CSS de tablet/desktop.
         if (window.innerWidth >= 750) {
             relatedItemsFixedContainer.style.maxHeight = '';
             relatedItemsFixedContainer.style.display = '';
             relatedItemsFixedContainer.classList.remove('open');
             isMenuOpen = false;
-            // Limpar posições e larguras também se tiverem sido definidas inline em mobile
             relatedItemsFixedContainer.style.position = ''; 
             relatedItemsFixedContainer.style.top = '';
             relatedItemsFixedContainer.style.left = '';
@@ -1704,12 +1658,10 @@ footer p:last-of-type {
         }
     });
 
-    // Chamadas iniciais para garantir que o estado inicial esteja correto na carga da página
-    handleScroll(); // Verifica fixação e padding na carga da página
-    setupMenuToggleListener(); // Configura o listener do hambúrguer
-    adjustMainContentPadding(); // Garante o padding inicial
+    handleScroll(); 
+    setupMenuToggleListener(); 
+    adjustMainContentPadding(); 
     
-    // Ativa o primeiro item do menu se nenhum estiver ativo na carga
     if (sections.length > 0 && !document.querySelector('.related-item.active')) {
         const firstSectionId = sections[0].id;
         const firstNavItem = document.querySelector(`.related-item[data-section="${firstSectionId}"]`);

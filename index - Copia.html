@@ -1,1616 +1,444 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Promoção da Saúde Mental</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
- <style>
-/* --- CORREÇÃO CRÍTICA: RESET GLOBAL --- */
-/* Isso garante que padding e bordas não aumentem a largura total dos elementos */
-* {
-    box-sizing: border-box;
-}
-
-/* AJUSTE ESSENCIAL: Permite que a janela (window) role novamente,
-   o que é necessário para o JavaScript (window.scrollY) funcionar. */
-html {
-    scroll-behavior: smooth; /* Mantém a rolagem suave nativa */
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f8f8f8;
-    
-    /* Permite que o conteúdo cresça e o scroll seja detectado pelo window.scrollY */
-    min-height: 100vh; 
-    
-    width: 100%;
-    
-    /* Esta linha corrige o espaço branco lateral sem travar o scroll vertical */
-    overflow-x: hidden; 
-    
-    position: relative;
-}
-
-/* Variável CSS para a altura do menu fixo (atualizada pelo JS) */
-:root {
-    --fixed-menu-offset: 0px; /* Valor padrão para offset do conteúdo principal */
-}
-
-/* -------------------- NOVAS CLASSES PARA O JAVASCRIPT -------------------- */
-/* Classe para esconder cabeçalho e título ao rolar */
-.hidden-on-scroll {
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-100%); /* Move para cima para sair da tela */
-    transition: all 0.3s ease-out; /* Adiciona uma transição suave */
-    pointer-events: none; /* Impede cliques em elementos escondidos */
-}
-
-/* Classe para fixar o menu horizontal em telas pequenas */
-.fixed-on-top-small-screens {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 999; /* Alto z-index para ficar acima de outros conteúdos */
-    background-color: #fff; /* Adicione uma cor de fundo sólida para o menu fixo */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Sombra para destacar */
-    border-radius: 0; /* Remove bordas arredondadas ao fixar no topo */
-}
-
-/* Garante que os elementos que podem ser escondidos tenham transição */
-header,
-.related-content-section h2 {
-    transition: all 0.3s ease-out;
-}
-/* -------------------- FIM DAS NOVAS CLASSES -------------------- */
-
-header {
-    background-color: #e0f2f7;
-    padding: 75px 20px;
-    text-align: right;
-    padding-right: 275px;
-    border-bottom: 2px solid #a7d9ed;
-    position: relative;
-    background-image: url('https://lh3.googleusercontent.com/rd-saves/AA8Ys26AVsLIhlct1AqXie8pDh1ndLX5lVnP_O5rXX7oljhPiW_EO-zWWiE-xvhVJgUGztIXYlpay9wJ7Upm-sh0-9zpr0Hw9sEkLnb4vHyFTHSUZ12JRz_N8P-vaOE56zVHiAd5CQ4-Dzmp4CYCqXBqgUwOfBBWElwvFu6eH_hv4weHxEiMmnsuaLQwhx66liWGN1D3XX6FErRQpJAHPvF0SeKLn47-5TF6XdLDNCsMEawYSWPf_OeF5mEZUb2ti6p7C4wj_q7ngXKHBCEA1KT94G4wGmX3CJNdAkPM3v2Q572bkwuwY7HBcitiR6bADGiAKmJpHk4MEDzc2AWI3lPUj7NrUbTfeYItVG4m-8GSonSP2KNOm9l8pRiih9bUKaMIRDMhC70OEkrZ_e_B7xmdh1Tm_uPDfBXtIXHpADub6lIXObt9378O3IFf6PWRbJM0PiLLbq5n-78QD3FDslTn_3Yn9zQLIAd0sbObMXbCqNcqW14ToCWzKE80mlXy-snf08q2v9bjIgIds5bLsHcXbrry0FxZXKLt-ztM2pVCVJiG913Ml8JmxpHermsebM5n4jB8CeOfW8JP51WGHt9lmMOv0lYS3QeosybscA1LHc_iBRAK6U2-GGWVDMx1GvxzEr4-sYj7z0cLYe9Z2o5K5iKmqgduu3LsFC3YGyzyXaNDTgiS3QoqzFijz3Tj-db92FKYUQRpt78ze6EkcANPLhmd0benQ-3Amlhz_gM2RZCdoUqLpDs4aNOt7RjzTL1ifmV6YF_3fkxP7ixoBkkkLxZHAYv9KFxS0oi0xusum9jwC8y_kCercr8qZza9qUta2DhwVtS5o8-I-kEoB10wPpRYr8nwVNVDPa3sOnVcNmqMZP-DvUrZrTzxqoPkl1zbXcZ-JXQC0oDsRDW17l9znD0K8jl_ZcLvzhaQ4lVN8EyLYw4ZwIlCMbeo4fQXEgivyMkFItLCfUzibG3zFbtT3KIxveTLTgv5cRWRX8IAKIte8Qu5E3vwGAkFZFXHhVEie-8cCt1yydKVDZuOPvJOYcZ6XgrEBH3Y4ZdPfvMCzNRRhnqXKYWp82tenpJbDBh9RcDMPu24BFYvReM_93ZMiF7ZXvimMxLcJCdDg5qYeFBUzWQAi5uatM9NFD8E4aGD53mobDdOK17-4wH6Z4k=s1830-w1830-h382-n-k?authuser=0.jpg');
-    background-size: cover;
-    background-position: center;
-    color: #ffffff;
-    width: 100%; /* Garante largura total */
-}
-
-.logo-container {
-    position: absolute;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    border: 4px solid #618ad8;
-    background-color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    padding: 0;
-}
-
-.logo-img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    width: 200.5px;
-    height: 200.5px;
-}
-
-.outer-wrapper {
-    display: flex;
-    max-width: 1200px;
-    margin: 20px auto;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    min-height: 500px;
-    align-items: flex-start;
-    gap: 0;
-}
-
-.related-content-section {
-    width: 270px;
-    background-color: #f0f0f0;
-    padding: 20px;
-    border-right: 1px solid #ddd;
-    position: sticky;
-    top: 20px;
-    align-self: flex-start;
-    max-height: calc(100vh - 40px);
-    overflow-y: auto;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-}
-
-.related-content-section .menu-toggle {
-    display: none;
-}
-
-.related-content-section::-webkit-scrollbar {
-    display: none;
-}
-
-/* --- ESTILIZAÇÃO PADRÃO DOS ITENS DE MENU --- */
-.related-item {
-    flex-shrink: 0;
-    padding: 25px 10px;
-    margin-right: 0;
-    margin-bottom: 10px;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-    cursor: pointer;
-    white-space: normal;
-    word-break: normal;
-    text-align: left;
-    min-width: unset;
-    background-color: #f0f0f0;
-    color: #333;
-    font-size: 1em;
-    font-weight: normal;
-}
-
-.related-item p {
-    margin: 0;
-}
-
-.related-item:last-child {
-    margin-bottom: 0;
-}
-
-.related-item:hover {
-    background-color: #e9e9e9;
-    border-color: #007bff;
-}
-
-.related-item.active {
-    border-color: #007bff;
-    font-weight: bold;
-    background-color: #e0f2f7;
-    color: #000;
-}
-
-.related-items-wrapper {
-    display: block;
-    overflow-x: hidden;
-    padding: 0;
-    -webkit-overflow-scrolling: touch;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-
-.related-items-wrapper::-webkit-scrollbar {
-    display: none;
-}
-
-.main-content-section {
-    flex-grow: 1;
-    padding: 160px;
-    width: calc(100% - 270px);
-    min-height: 2000px;
-    margin-left: 0;
-    padding-top: var(--fixed-menu-offset, 160px);
-    transition: padding-top 0.3s ease;
-}
-
-.main-content-section section:not(:first-child) {
-    margin-top: 30px;
-}
-
-.main-content-section hr {
-    margin-top: 40px;
-    margin-bottom: 40px;
-    border: none;
-    border-top: 1px solid #ddd;
-}
-
-.main-content-section h2 {
-    color: #333;
-    margin-top: 100px;
-    margin-bottom: 20px;
-    font-size: 1.8em;
-    text-align: center;
-}
-
-.main-content-section h2 + p {
-    margin-top: 25px;
-}
-
-.main-content-section p {
-    text-align: justify;
-    line-height: 1.6;
-}
-
-.intro-graphic-section {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 900px;
-}
-
-.intro-graphic-text {
-    flex: 1;
-    padding-right: 20px;
-    min-width: 300px;
-    text-align: justify;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-}
-
-.intro-graphic-image {
-    text-align: center;
-    width: 350px;
-    flex-shrink: 0;
-}
-
-.intro-graphic-image img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    border: 3px solid rgba(255, 215, 0, 0.7);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.source-info {
-    font-size: 0.9em;
-    color: #666;
-    margin-top: 15px;
-    text-align: justify;
-}
-
-/* -------------------- ESTILO PARA LINKS -------------------- */
-.source-info a,
-.related-content-section a {
-    color: #666;
-    text-decoration: none;
-    transition: color 0.3s ease, text-decoration 0.3s ease;
-}
-
-.source-info a:hover,
-.related-content-section a:hover {
-    color: #5bc0de;
-    text-decoration: underline;
-}
-
-.main-content-section p a {
-    color: #007bff;
-    text-decoration: none;
-    font-weight: bold;
-    transition: text-decoration 0.3s ease;
-}
-
-.main-content-section p a:hover {
-    text-decoration: underline;
-}
-
-#articles-content ul li {
-    color: #000;
-}
-
-#articles-content ul li a {
-    color: #007bff;
-    text-decoration: none;
-    transition: text-decoration 0.3s ease;
-}
-
-#articles-content ul li a:hover {
-    text-decoration: underline;
-}
-/* -------------------- FIM DO ESTILO PARA LINKS -------------------- */
-
-.alert-cards-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 30px;
-    flex-wrap: wrap;
-}
-
-.alert-column {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    width: 30%;
-    min-width: 250px;
-}
-
-.alert-card {
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.alert-card p {
-    text-align: left;
-    line-height: 1.6;
-}
-
-.alert-card ul {
-    list-style: disc;
-    padding-left: 20px;
-    margin: 0;
-}
-
-.alert-card ul li {
-    text-align: justify;
-    margin-bottom: 0;
-    padding: 0;
-    line-height: 1.2;
-}
-
-.alert-card.low {
-    background-color: #e6ffe6;
-    border: 1px solid #4CAF50;
-}
-
-.alert-card.medium {
-    background-color: #fffbe6;
-    border: 1px solid #FFC107;
-}
-
-.alert-card.high {
-    background-color: #ffe6e6;
-    border: 1px solid #F44336;
-}
-
-.alert-card.low h3 {
-    color: #4CAF50;
-    border-bottom: 1px solid #4CAF50;
-    padding-bottom: 5px;
-}
-
-.alert-card.medium h3 {
-    color: #FFC107;
-    border-bottom: 1px solid #FFC107;
-    padding-bottom: 5px;
-}
-
-.alert-card.high h3 {
-    color: #F44336;
-    border-bottom: 1px solid #F44336;
-    padding-bottom: 5px;
-}
-
-.saiba-mais-button {
-    display: inline-block;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    margin-top: 15px;
-    color: white;
-    cursor: pointer;
-    border: none;
-    transition: background-color 0.3s ease;
-}
-
-.saiba-mais-button.low { background-color: #4CAF50; }
-.saiba-mais-button.low:hover { background-color: #45a049; }
-.saiba-mais-button.medium { background-color: #FFC107; color: white; }
-.saiba-mais-button.medium:hover { background-color: #e0a800; }
-.saiba-mais-button.high { background-color: #F44336; }
-.saiba-mais-button.high:hover { background-color: #d32f2f; }
-
-.video-responsive {
-    padding-bottom: 56.25%;
-    position: relative;
-    height: 0;
-    overflow: hidden;
-    max-width: 100%;
-    background: #000;
-    margin-bottom: 10px;
-    border: 5px solid;
-}
-
-.video-responsive iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    filter: grayscale(100%) brightness(1.0);
-    transition: filter 0.3s ease;
-}
-
-.video-responsive iframe:hover {
-    filter: none;
-}
-
-.alert-card.low .video-responsive { border-color: #4CAF50; }
-.alert-card.medium .video-responsive { border-color: #FFC107; }
-.alert-card.high .video-responsive { border-color: #F44336; }
-
-.content-image {
-    max-width: 100%;
-    height: auto;
-    margin: 20px 0;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* --- Estilos do Rodapé --- */
-footer {
-    background-color: #2c3e50;
-    color: #ecf0f1;
-    padding: 2em 0;
-    text-align: center;
-    font-size: 0.9em;
-    margin-top: 30px;
-    width: 100%; /* Garante largura total */
-    overflow-x: hidden;
-}
-
-footer p {
-    margin: 0.5em 0;
-    padding: 0 15px;
-}
-
-footer a {
-    color: #3498db;
-    text-decoration: none;
-    margin: 0 8px;
-    transition: color 0.3s ease, transform 0.2s ease;
-    display: inline-flex;
-    align-items: center;
-    white-space: nowrap; /* Cuidado: isso será alterado no mobile */
-}
-
-footer a:hover {
-    color: #2980b9;
-    transform: translateY(-1px);
-}
-
-footer p:last-of-type {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 15px;
-}
-
-/* -------------------- ESTILOS PARA SEÇÕES ADICIONADAS -------------------- */
-.main-content-section h3 {
-    color: #4CAF50;
-    border-bottom: 1px solid #DDD;
-    padding-bottom: 8px;
-    margin-top: 30px;
-    font-size: 1.4em;
-}
-
-.main-content-section h3#tips-strategies,
-.main-content-section h3#other-tips {
-    color: #000;
-    font-weight: bold;
-    border-bottom: none;
-    padding-bottom: 0;
-}
-
-.main-content-section h3#mental-health-tutorial {
-    color: #4CAF50;
-    font-weight: bold;
-    border-bottom: 1px solid #DDD;
-    padding-bottom: 8px;
-}
-
-.main-content-section h4 {
-    color: #000;
-    font-weight: bold;
-    margin-top: 25px;
-    margin-bottom: 15px;
-    font-size: 1.2em;
-}
-
-.main-content-section ul,
-.main-content-section ol {
-    margin: 15px 0 20px 20px;
-    padding: 0;
-}
-
-.main-content-section ul li,
-.main-content-section ol li {
-    margin-bottom: 10px;
-    line-height: 1.5;
-    text-align: justify;
-}
-
-.main-content-section p strong em {
-    display: block;
-    background-color: #fff3cd;
-    border-left: 5px solid #ffc107;
-    padding: 15px;
-    margin: 25px 0;
-    color: #856404;
-    font-style: normal;
-    font-weight: bold;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.button-link {
-    display: inline-block;
-    background-color: #28a745;
-    color: #fff;
-    padding: 12px 25px;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 5px;
-    margin-top: 30px;
-    font-weight: bold;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    cursor: pointer;
-    border: none;
-}
-
-.button-link:hover {
-    background-color: #218838;
-    transform: translateY(-2px);
-}
-
-/* =========================================
-   MEDIA QUERIES (Responsividade)
-   ========================================= */
-
-/* --- MOBILE (< 750px) --- */
-@media (max-width: 749px) {
-    .outer-wrapper {
-        flex-direction: column;
-        margin: 0;
-        max-width: 100%;
-        justify-content: flex-start;
-        min-height: unset;
-        margin-top: 0;
-    }
-
-    .related-content-section {
-        width: 100%;
-        position: static;
-        top: unset;
-        left: 0;
-        z-index: 999;
-        background-color: #f0f0f0;
-        border-right: none;
-        border-bottom: 1px solid #ddd;
-        border-radius: 0;
-        padding: 10px 20px;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        height: 60px;
-        flex-wrap: nowrap;
-        overflow: hidden;
-        transition: height 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .related-content-section.fixed-on-top-small-screens {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        border-radius: 0;
-        padding: 10px 20px;
-        z-index: 1000;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-
-    .related-content-section h2 {
-        display: none;
-        visibility: hidden;
-        width: 0;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-    }
-
-    .related-content-section .menu-toggle {
-        display: block;
-        font-size: 2em;
-        cursor: pointer;
-        color: #333;
-        padding: 0;
-        margin-right: 15px;
-        line-height: 1;
-        position: relative;
-        z-index: 1000;
-    }
-
-    .related-items-fixed-container {
-        display: none;
-        position: static;
-        flex-grow: 1;
-        height: 100%;
-        background-color: transparent;
-        box-shadow: none;
-        padding: 0;
-        overflow-y: hidden;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-        max-height: unset;
-        opacity: 0;
-        pointer-events: none;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-        transition: opacity 0.3s ease;
-        z-index: 998;
-    }
-
-    .related-items-fixed-container.open {
-        display: flex;
-        opacity: 1;
-        pointer-events: auto;
-    }
-
-    .related-items-wrapper {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        padding: 0;
-        overflow-x: visible;
-        overflow-y: hidden;
-        width: auto;
-        height: 100%;
-        align-items: center;
-    }
-
-    .related-item {
-        margin-right: 10px;
-        margin-bottom: 0;
-        white-space: nowrap;
-        font-size: 0.9em;
-        padding: 8px 12px;
-        text-align: center;
-    }
-    .related-item:last-child {
-        margin-right: 0;
-    }
-    .related-item.active {
-        background-color: #007bff;
-        color: white;
-    }
-
-    .main-content-section {
-        padding-top: var(--fixed-menu-offset, 40px);
-        padding-left: 20px; /* Ajustado para melhor visualização */
-        padding-right: 20px; /* Ajustado para melhor visualização */
-        width: 100%;
-        margin-left: 0;
-        min-height: unset;
-    }
-
-    header {
-        width: 100%;
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-    
-    /* Ajuste do Rodapé para Mobile: Permite quebra de linha */
-    footer a {
-        white-space: normal;
-        margin-bottom: 10px;
-        display: inline-block;
-    }
-}
-
-/* --- TABLET (750px - 1019px) --- */
-@media (min-width: 750px) and (max-width: 1019px) {
-    .main-content-section {
-        width: 100%;
-        padding: 20px;
-        margin-left: 0;
-        min-height: unset;
-        padding-top: var(--fixed-menu-offset, 40px);
-    }
-
-    header {
-        padding: 50px 20px;
-        text-align: right;
-        padding-right: 30px;
-        padding-left: 260px;
-    }
-
-    .logo-container {
-        position: static;
-        transform: none;
-        margin: 0 auto 20px auto;
-        width: 150px;
-        height: 150px;
-    }
-    .outer-wrapper {
-        flex-direction: column;
-        margin: 10px auto;
-        max-width: 95%;
-        justify-content: center;
-        min-height: unset;
-        margin-top: 0;
-    }
-    .related-content-section {
-        width: 100%;
-        position: static;
-        top: unset;
-        max-height: none;
-        border-right: none;
-        border-bottom: 1px solid #ddd;
-        border-radius: 8px 8px 0 0;
-        padding-bottom: 10px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        height: auto;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        background-color: #f0f0f0;
-        transition: box-shadow 0.3s ease;
-    }
-    .related-content-section .menu-toggle {
-        display: none;
-    }
-
-    .related-content-section.fixed-on-top-small-screens {
-        border-radius: 0;
-        padding: 10px 20px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 999;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-
-    .related-content-section h2 {
-        text-align: center;
-        margin-bottom: 15px;
-        width: 100%;
-        display: block;
-        visibility: visible;
-        height: auto;
-        margin-top: 0;
-        overflow: visible;
-    }
-    .related-items-fixed-container {
-        display: block;
-        position: static;
-        width: 100%;
-        box-shadow: none;
-        padding: 0;
-        border-top: none;
-        overflow-y: visible;
-        max-height: unset;
-        opacity: 1;
-        pointer-events: auto;
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-start;
-        transition: none;
-    }
-    .related-items-wrapper {
-        width: 100%;
-        display: flex;
-        justify-content: flex-start;
-        padding: 0 10px;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-        flex-direction: row;
-        align-items: center;
-    }
-    .related-items-wrapper::-webkit-scrollbar {
-        display: none;
-    }
-    .related-item {
-        margin-bottom: 5px;
-        margin-right: 10px;
-        font-size: 0.9em;
-        padding: 8px 12px;
-        flex-shrink: 0;
-        white-space: nowrap;
-        word-break: normal;
-        text-align: center;
-    }
-    .alert-cards-container {
-        flex-direction: column;
-        align-items: center;
-    }
-    .alert-column {
-        width: 100%;
-        min-width: unset;
-        max-width: 400px;
-    }
-    .intro-graphic-section {
-        flex-direction: column;
-        align-items: center;
-    }
-    .intro-graphic-text {
-        padding-right: 0;
-        min-width: unset;
-    }
-    .intro-graphic-image {
-        width: 90%;
-    }
-}
-
-/* --- DESKTOP PEQUENO (1020px - 1159px) --- */
-@media (min-width: 1020px) and (max-width: 1159px) {
-    header {
-        padding: 50px 20px;
-        text-align: right;
-        padding-right: 60px;
-        padding-left: 20px;
-    }
-    .outer-wrapper {
-        max-width: 1100px;
-        margin: 20px auto;
-        justify-content: flex-start;
-        min-height: 500px;
-        margin-top: 20px;
-    }
-    .related-content-section {
-        width: 200px;
-        padding: 20px;
-        position: sticky;
-        top: 20px;
-        align-self: flex-start;
-        display: block;
-        border-right: 1px solid #ddd;
-        max-height: none;
-        height: auto;
-        box-shadow: none;
-    }
-    .related-content-section h2 {
-        text-align: left;
-        margin-bottom: 20px;
-        width: 100%;
-        display: block;
-        visibility: visible;
-        height: auto;
-        margin-top: 0;
-        overflow: visible;
-    }
-    .related-items-wrapper {
-        display: block;
-        overflow-x: hidden;
-        padding: 0;
-        flex-direction: column;
-    }
-    .related-items-fixed-container {
-        display: block;
-        position: static;
-        width: 100%;
-        box-shadow: none;
-        padding: 0;
-        border-top: none;
-        overflow-y: visible;
-        max-height: unset;
-        opacity: 1;
-        pointer-events: auto;
-        transition: none;
-    }
-    .related-item {
-        margin-right: 0;
-        display: block;
-        text-align: left;
-        min-width: unset;
-        padding: 25px 10px;
-        font-size: 1em;
-        white-space: normal;
-        word-break: normal;
-    }
-    .main-content-section {
-        margin-left: 0;
-        width: calc(100% - 200px);
-        max-width: unset;
-        margin-right: 0;
-        padding: 30px;
-        min-height: 2000px;
-        padding-top: var(--fixed-menu-offset, 100px);
-    }
-    .alert-cards-container {
-        gap: 10px;
-    }
-    .alert-column {
-        min-width: 220px;
-        width: 32%;
-    }
-    .intro-graphic-section {
-        flex-direction: column;
-        align-items: center;
-    }
-    .intro-graphic-text {
-        padding-right: 0;
-        min-width: unset;
-    }
-    .intro-graphic-image {
-        width: 90%;
-    }
-}
-
-/* --- DESKTOP MÉDIO (1160px - 1340px) --- */
-@media (min-width: 1160px) and (max-width: 1340px) {
-    header {
-        padding: 75px 20px;
-        text-align: left;
-        padding-left: 400px;
-        padding-right: 20px;
-    }
-    .outer-wrapper {
-        max-width: 1200px;
-        margin: 20px auto;
-        justify-content: flex-start;
-        margin-top: 20px;
-    }
-    .related-content-section {
-        width: 270px;
-        padding: 20px;
-        position: sticky;
-        top: 20px;
-        align-self: flex-start;
-        display: block;
-        border-right: 1px solid #ddd;
-        height: auto;
-        box-shadow: none;
-    }
-    .related-content-section h2 {
-        text-align: left;
-        margin-bottom: 20px;
-        width: 100%;
-        display: block;
-        visibility: visible;
-        height: auto;
-        margin-top: 0;
-        overflow: visible;
-    }
-    .related-items-wrapper {
-        display: block;
-        overflow-x: hidden;
-        padding: 0;
-        flex-direction: column;
-    }
-    .related-items-fixed-container {
-        display: block;
-        position: static;
-        width: 100%;
-        box-shadow: none;
-        padding: 0;
-        border-top: none;
-        overflow-y: visible;
-        max-height: unset;
-        opacity: 1;
-        pointer-events: auto;
-        transition: none;
-    }
-    .related-item {
-        margin-right: 0;
-        display: block;
-        text-align: left;
-        min-width: unset;
-        padding: 25px 10px;
-        font-size: 1em;
-    }
-    .main-content-section {
-        margin-left: 0;
-        width: calc(100% - 270px);
-        max-width: unset;
-        margin-right: 0;
-        padding: 50px;
-        padding-top: var(--fixed-menu-offset, 100px);
-    }
-}
-
-/* --- DESKTOP LARGO (1341px - 1366px) --- */
-@media (min-width: 1341px) and (max-width: 1366px) {
-    header {
-        padding: 75px 20px;
-        text-align: right;
-        padding-right: 200px;
-        padding-left: 20px;
-    }
-    .outer-wrapper {
-        max-width: 1200px;
-        margin: 20px auto;
-        margin-top: 20px;
-    }
-    .related-content-section {
-        width: 270px;
-        padding: 20px;
-        position: sticky;
-        top: 20px;
-        align-self: flex-start;
-        display: block;
-        border-right: 1px solid #ddd;
-        height: auto;
-        box-shadow: none;
-    }
-    .related-content-section h2 {
-        text-align: left;
-        margin-bottom: 20px;
-        width: 100%;
-        display: block;
-        visibility: visible;
-        height: auto;
-        margin-top: 0;
-        overflow: visible;
-    }
-    .related-items-wrapper {
-        display: block;
-        overflow-x: hidden;
-        padding: 0;
-        flex-direction: column;
-    }
-    .related-items-fixed-container {
-        display: block;
-        position: static;
-        width: 100%;
-        box-shadow: none;
-        padding: 0;
-        border-top: none;
-        overflow-y: visible;
-        max-height: unset;
-        opacity: 1;
-        pointer-events: auto;
-        transition: none;
-    }
-    .related-item {
-        margin-right: 0;
-        display: block;
-        text-align: left;
-        min-width: unset;
-        padding: 25px 10px;
-        font-size: 1em;
-    }
-    .main-content-section {
-        margin-left: 0;
-        width: calc(100% - 270px);
-        max-width: unset;
-        margin-right: 0;
-        padding: 50px;
-        padding-top: var(--fixed-menu-offset, 100px);
-    }
-}
-
-/* --- TELAS EXTRA LARGAS (> 1367px) --- */
-@media (min-width: 1367px) {
-    header {
-        padding: 75px 20px;
-        text-align: right;
-        padding-right: 275px;
-        padding-left: 20px;
-    }
-    .outer-wrapper {
-        max-width: unset;
-        width: 100%;
-        margin-left: 0;
-        margin-right: auto;
-        justify-content: flex-start;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        margin-top: 20px;
-    }
-    .related-content-section {
-        width: 270px;
-        padding: 20px;
-        position: sticky;
-        top: 20px;
-        align-self: flex-start;
-        border-right: 1px solid #ddd;
-        display: block;
-        margin-left: 50px;
-        height: auto;
-        box-shadow: none;
-    }
-    .related-content-section h2 {
-        text-align: left;
-        margin-bottom: 20px;
-        width: 100%;
-        display: block;
-        visibility: visible;
-        height: auto;
-        margin-top: 0;
-        overflow: visible;
-    }
-    .related-items-wrapper {
-        display: block;
-        overflow-x: hidden;
-        padding: 0;
-        flex-direction: column;
-    }
-    .related-items-fixed-container {
-        display: block;
-        position: static;
-        width: 100%;
-        box-shadow: none;
-        padding: 0;
-        border-top: none;
-        overflow-y: visible;
-        max-height: unset;
-        opacity: 1;
-        pointer-events: auto;
-        transition: none;
-    }
-    .related-item {
-        margin-right: 0;
-        display: block;
-        text-align: left;
-        min-width: unset;
-        padding: 25px 10px;
-        font-size: 1em;
-    }
-    .main-content-section {
-        flex-grow: 1;
-        width: auto;
-        padding: 50px;
-        max-width: 930px;
-        margin-left: 0;
-        margin-right: auto;
-        padding-top: var(--fixed-menu-offset, 100px);
-    }
-}
-
-/* --- BOTÃO DE FEEDBACK FLUTUANTE --- */
-.feedback-button-container {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1000;
-}
-
-.feedback-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #007bff;
-    color: white;
-    width: 50px;
-    height: 50px;
-    padding: 0;
-    border-radius: 50%;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.1em;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-    overflow: hidden;
-    transform-origin: right center;
-}
-
-.feedback-button .fas {
-    font-size: 1.5em;
-    margin-right: 0;
-    transition: margin-right 0.3s ease;
-}
-
-.feedback-button .feedback-text {
-    white-space: nowrap;
-    opacity: 0;
-    width: 0;
-    overflow: hidden;
-    transition: opacity 0.3s ease, width 0.3s ease, margin-left 0.3s ease;
-}
-
-.feedback-button:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-    width: 130px;
-    border-radius: 30px;
-    padding: 0 15px 0 5px;
-    justify-content: flex-end;
-}
-
-.feedback-button:hover .fas {
-    margin-right: 10px;
-}
-
-.feedback-button:hover .feedback-text {
-    opacity: 1;
-    width: auto;
-    margin-left: 0;
-}
-
-/* Ajuste do botão para telas menores */
-@media (max-width: 768px) {
-    .feedback-button-container {
-        bottom: 15px;
-        right: 15px;
-    }
-    .feedback-button {
-        width: 45px;
-        height: 45px;
-        font-size: 1em;
-    }
-    .feedback-button .fas {
-        font-size: 1.3em;
-    }
-    .feedback-button:hover {
-        width: 109px;
-        padding: 0 12px 0 8px;
-    }
-}
- </style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protótipo Floating Toggle Component - Persistência</title>
+    <!-- Carrega o Tailwind CSS para estilização moderna e responsiva -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Variável CSS para ajuste de padding do conteúdo principal */
+        :root {
+            --fixed-menu-offset: 0px;
+            --page-padding-x: 16px; /* Definindo padding lateral padrão (equivalente a p-4) */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f7f7;
+            min-height: 200vh;
+        }
+
+        /* Simulação do Cabeçalho e Conteúdo com Padding Lateral de 16px */
+        #page-header {
+            height: 120px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            /* Adiciona o padding lateral para alinhamento */
+            padding: 0 var(--page-padding-x); 
+            border-bottom: 1px solid #ddd;
+        }
+        #main-content {
+            padding: 1rem var(--page-padding-x); /* Padrão 1rem em cima/baixo e 16px nas laterais */
+            padding-top: calc(var(--fixed-menu-offset) + 1rem); /* Ajusta padding superior */
+        }
+        section {
+            padding: 1rem; /* Padding interno das seções */
+        }
+
+        /* ---------------------------------------------------- */
+        /* Estilos do Menu Mobile (max-width: 749px) */
+        /* ---------------------------------------------------- */
+        
+        /* Contêiner da Barra do Menu (Topo da Página) */
+        .related-content-section {
+            background-color: transparent; 
+            width: 100%;
+            height: auto; 
+            border-bottom: none; 
+            z-index: 50;
+            display: flex;
+            justify-content: center;
+            /* Aplica o padding lateral do menu flutuante aqui, garantindo o alinhamento */
+            padding: 10px var(--page-padding-x); 
+            box-sizing: border-box;
+        }
+
+        /* Classe de Fixação (Adicionada pelo JS) */
+        .related-content-section.fixed-on-top-small-screens {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%; 
+            box-shadow: none; 
+            background-color: transparent; 
+        }
+
+        /* Contêiner principal do novo componente flutuante */
+        #floating-component-container {
+            width: 100%; /* Ocupa 100% da largura do pai (que já tem o padding de 16px) */
+            min-width: 100px;
+            transition: all 0.3s ease-in-out;
+            border-radius: 8px; 
+            background-color: #ffffff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            display: flex; 
+            align-items: center;
+            overflow: hidden;
+            height: 50px;
+        }
+        
+        /* Contêiner do Botão Toggle (Hambúrguer) */
+        #menuToggle {
+            flex-shrink: 0; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 50px; 
+            width: 50px; 
+            background-color: #fff;
+            cursor: pointer;
+            z-index: 10;
+            border-right: none; 
+            transition: all 0.3s ease-in-out;
+        }
+        
+        /* Contêiner dos links (Toggle de Conteúdo) */
+        #relatedItemsWrapperContainer {
+            flex-grow: 1; 
+            overflow: hidden; 
+            transition: all 0.3s ease-in-out;
+            display: flex;
+            align-items: center;
+            height: 50px;
+        }
+
+        /* Estilo da área de rolagem horizontal */
+        #relatedItemsWrapper {
+            display: flex;
+            flex-direction: row;
+            overflow-x: scroll;
+            -webkit-overflow-scrolling: touch;
+            align-items: center;
+            white-space: nowrap; 
+            padding: 0 8px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        #relatedItemsWrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Estilo do Item de Link (Botão) */
+        .related-item {
+            flex-shrink: 0;
+            padding: 4px 10px;
+            font-size: 0.85em; 
+            cursor: pointer;
+            color: #4b5563; 
+            border-radius: 6px; 
+            margin: 4px; 
+            transition: background-color 0.2s, color 0.2s;
+        }
+        
+        /* Destaque: Item Ativo */
+        .related-item.active {
+            background-color: #1e40af; 
+            color: white;
+            font-weight: 600;
+        }
+
+        /* ---------------------------------------------------- */
+        /* Estilos de Retração e Expansão */
+        /* ---------------------------------------------------- */
+
+        /* Botão de Toggle da Seta (Seta de Retração/Expansão) */
+        #toggle-section-btn {
+            flex-shrink: 0; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 50px; 
+            width: 50px; 
+            background-color: #fff;
+            cursor: pointer;
+            border-radius: 0 8px 8px 0;
+            margin: 0;
+            transition: all 0.3s ease-in-out;
+            border-left: 1px solid #eee; /* Linha divisória */
+        }
+        
+        /* Estado Retraído */
+        .retracted #relatedItemsWrapperContainer {
+            width: 0;
+            opacity: 0;
+            flex-grow: 0; 
+        }
+
+        /* Estado Expandido */
+        .expanded #relatedItemsWrapperContainer {
+            width: auto;
+            opacity: 1;
+            flex-grow: 1; 
+        }
+        
+        /* Ajuste de Bordas no Estado Expandido: Hambúrguer e Links */
+        .expanded #menuToggle {
+            border-right: 1px solid #eee; /* Adiciona borda direita para separar Hambúrguer dos Links */
+            border-radius: 8px 0 0 8px;
+        }
+        
+    </style>
 </head>
-<body>
-<header>
-    <h1>Bem-vindo à Nossa Página de Saúde Mental</h1>
-</header>
-<div class="outer-wrapper">
-    <aside class="related-content-section">
-        <div class="menu-toggle" id="menuToggle">☰</div>
-        <h2>Conteúdos Relacionados</h2>
-        <div class="related-items-fixed-container">
-            <div class="related-items-wrapper">
-                <div class="related-item active" data-section="introduction">
-                    <p>Saúde Mental Visão Geral</p>
+<body class="p-0 m-0">
+
+    <!-- Simulação do Cabeçalho (Necessário para a lógica de fixação) -->
+    <header id="page-header" class="w-full">
+        <h1 class="text-xl font-extrabold text-gray-700">Cabeçalho da Página</h1>
+    </header>
+
+    <!-- Menu Bar (O "related-content-section") -->
+    <aside id="menu-bar" class="related-content-section w-full">
+        <!-- Contêiner que envolve o componente flutuante -->
+        <div class="max-w-7xl w-full flex items-center h-full">
+            
+            <!-- Componente Flutuante Principal (Ocupa 100% do espaço com padding) -->
+            <div id="floating-component-container" class="retracted">
+            
+                <!-- 1. Botão Hambúrguer (SEMPRE visível) -->
+                <div id="menuToggle" class="menu-toggle">
+                     <span id="toggle-icon" class="text-gray-800 text-xl">☰</span>
                 </div>
-                <div class="related-item" data-section="warning-signs">
-                    <p>Sinais de Alerta<br>Importantes</p>
+            
+                <!-- 2. Contêiner dos Links (Expande/Retrai) -->
+                <div id="relatedItemsWrapperContainer">
+                    <!-- Lista de Itens (Rolagem Horizontal) -->
+                    <div id="relatedItemsWrapper" class="related-items-wrapper">
+                        <!-- Links Reais -->
+                        <div class="related-item" data-section="intro-section">Introdução</div>
+                        <div class="related-item" data-section="produtos-section">Produtos e Serviços</div>
+                        <div class="related-item" data-section="config-section">Configurações</div>
+                        <div class="related-item" data-section="faq-section">FAQ</div>
+                        <div class="related-item" data-section="contato-section">Contato</div>
+                        <div class="related-item" data-section="extras-section">Extras</div>
+                        <div class="related-item" data-section="final-section">Final</div>
+                    </div>
                 </div>
-                <div class="related-item" data-section="mental-health-tips">
-                    <p>Dicas de Saúde Mental</p>
+                
+                <!-- 3. Botão de Toggle de Seções (Seta para Baixo/Cima - FIXO na Direita) -->
+                <div id="toggle-section-btn">
+                    <svg id="section-toggle-icon" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
                 </div>
-                <div class="related-item" data-section="articles-content">
-                    <p>Artigos e Materiais <br>Adicionais</p>
-                </div>
-                <div class="related-item" data-section="conclusion">
-                    <p>Considerações</p>
-                </div>
+
             </div>
+            
         </div>
     </aside>
-    <main class="main-content-section">
-        <section id="introduction">
-            <h2>Promoção da Saúde Mental</h2>
-            <p>A saúde mental é fundamental para o bem-estar e a qualidade de vida. Em um mundo acelerado e repleto de pressões, desenvolver hábitos saudáveis para lidar com o estresse e a ansiedade é essencial. Este projeto oferece uma plataforma web interativa com técnicas acessíveis de meditação e relaxamento, apoiadas por imagens, vídeos e ferramentas digitais intuitivas. O objetivo desta plataforma web é dar o primeiro norte para as
-            pessoas que estão enfrentando alguma dificuldade psicológica, oferecendo informações e ferramentas de apoio para promover o bem-estar e o autoconhecimento.</p>
-            <p>No Brasil, a procura por informações e auxílio relacionados à saúde mental tem crescido significativamente. Dados recentes revelam um aumento expressivo nos afastamentos por ansiedade e depressão, impactando diretamente o ambiente de trabalho e a vida personal. É crucial estarmos atentos a esses números e buscarmos compreender o impacto das exigências modernas em nosso bem-estar mental.</p>
-            <div class="intro-graphic-section">
-                <div class="intro-graphic-text">
-                    <p>Este gráfico mostra o aumento no número de atendimentos em saúde mental no Brasil entre 2014 e 2024. Os dados revelam um crescimento significativo, mostrando a crescente preocupação com o bem-estar mental no país.</p>
-                    <p class="source-info">Fonte: <a href="https://g1.globo.com/trabalho-e-carreira/noticia/2025/03/10/crise-de-saude-mental-brasil-tem-maior-numero-de-afastamentos-por-ansiedade-e-depressao-em-10-anos.ghtml" target="_blank" rel="noopener noreferrer">G1 - Crise de saúde mental: Brasil tem maior número de afastamentos por ansiedade e depressão em 10 anos.</a></p>
-                </div>
-                <div class="intro-graphic-image">
-                    <img src="https://lh3.googleusercontent.com/rd-saves/AA8Ys27hrhya9CKRZK6uwKLgebO2d4mUPf7O0rU2dzsc-DxNbS3wYOy6Vgy717DpjOC8ogYTxZrl1ud3Cd4C8ChZx_RdDSsOwbrTpetX5t7AObcUjlb66rAxoDC35Dtna5NNqJFTcprfgupOWKvAVamPiAGHE8Z28N22s3sZaJGaVhXXu95WbRf16hRqAS3pnQZSj0rG3NFl6m44d7dbkED50DifxndAxau4FTNAZ089zuaaIsUdZvOtRbM5yZX7RR0vpgmd0odGTgfEIlNE-xaOvkGvrx8nZOmhT0fKT8crb2l2FpOU-2fsXSCPOPdcdlBCe5DMnytLmdnaAgO3ldmtyX2rqC-7wE7EKDn_jvuO8icqz7VHTrTY4erU1MJkDwxL5UZQdjrdToD8Hxmrx1EB8GzAi-L78Dr7tmTEFb6xHW5b_U2kIOtyo5P5xAM6JT6djJ3BdlFkiHmGyf70ngFGoxTI6V1GqppDlPe9iMqWhSB7fcwfAYeKC9Z19lYUnPOVslS1vnsyjh4ToLSvnIpuoPh7ydi_J-TxAsvZ5aESE-xW_JwSwIHPMzDcyaC-Ab84KAjC0mg47m3Ege2jynM95-ZAK9ToOEPFg7EKuKJGhVAEENkRjNVqotCfWzWZAZOnhcT3iIHi0Crmqqyu1XERrrmY7t72QVxBjO9g9wQBSQXVLAKAAuQqLrzhmd2UOUpoSx3r8LJjWmy1Fcznkl0YPn-LPuA9GAguVJn-AgKfqZsGDXvimgk_NxTazlp-tl3X0ogGkjanjC3k1H1HIW2Fdub5M3JPfSJP4meSpy7UHmQ2futnMKggW2rRTYY40A2zpsTf272bq9xIDMCL_bhQOkjA7LM0ncGy5ImcNnHm939zmGbPcuksrKbnKR-JAjwnctwklL3DNMsV0YeuBHqT4yQ08mwHu_c9eH6lU5rAFfYKUVCN1mv3jQLuiPkBHRzbCmE41D7W_hX1Xgl27mu_MDt8CIbdtq4OIAUp5xQqHE-GYXwIZ9fbHlwx80pOQG3yjwh1NI7PeifJmyW8_o7JMgB3PMGoodTupaoT2ivKQiXnc6F4fJl_vg2rqyvx6sDQA6EoSSsdBW1SQR7EYqbgqEKFWds24kX_wpqyeEjMasFFr2g3CulwPWs6Q05g6wXWIoHuE4gCJtmTAezgDSsZ=s2048-w2048-h1024-n-k?authuser=0.jpg" alt="Gráfico de atendimentos em saúde mental no Brasil">
-                </div>
-            </div>
-            <p>Diversos fatores contribuem para o aumento na procura por informações sobre saúde mental, incluindo o estresse da vida moderna, a maior conscientização sobre o tema e a busca por uma melhor qualidade de vida. Além disso, a pressão no trabalho e as demandas por produtividade também podem agravar o desenvolvimento de transtornos mentais.</p>
-            <p>Cuidar da nossa saúde mental é tão importante quanto cuidar do nosso corpo. Pequenas ações diárias podem fazer uma grande diferença na prevenção e no manejo de desafios. A partir de agora, você verá alguns sinais de alerta importantes que podem ajudar no seu autoconhecimento e na busca por apoio, caso necessário.</p>
+
+    <!-- CONTEÚDO PRINCIPAL (Para teste do Scroll e Intersection Observer) -->
+    <main id="main-content">
+
+        <section id="intro-section" class="h-[100vh] bg-blue-50 flex items-center justify-center p-8 mb-4 rounded-lg shadow-md">
+            <h2 class="text-3xl font-bold text-blue-800">Seção: Introdução</h2>
         </section>
-        <hr>
-        <section id="warning-signs">
-            <h2>Sinais de Alerta</h2>
-            <p>Reconhecer os sinais de alerta é o primeiro passo para cuidar da sua saúde mental. Nesta seção, você vai encontrar informações importantes para identificar pontos de atenção e buscar ajuda, caso precise.</p>
-            <p>Lembre-se: os sinais de alerta apresentados aqui são apenas um guia. Se você se identificar com algum deles, procure um profissional de saúde mental para uma avaliação completa e acompanhamento médico. Compartilhe esses sinais com ele para receber o apoio adequado.</p>
-            <div class="alert-cards-container">
-                <div class="alert-column">
-                    <div class="alert-card low">
-                        <h3>Nível Baixo: Pontos de Alerta</h3>
-                        <ul>
-                            <li>Baixa autoestima</li>
-                            <li>Falta de motivação</li>
-                            <li>Alterações leves de<br>humor</li>
-                        </ul>
-                    </div>
-                    <div class="alert-card low">
-                        <h3>Nível Baixo: Vídeo Informativo</h3>
-                        <div class="video-responsive">
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/yTE-8UC-dSg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                        </div>
-                        <p>Este vídeo explica o que é a baixa autoestima, seus sintomas e oferece dicas sobre como melhorar a autoestima. Ele também aborda a relação entre baixa autoestima e pensamentos de incapacidade, que podem levar à falta de motivação, além de discutir como a baixa autoestima pode estar relacionada a distúrbios que afetam o comportamento.</p>
-                        <a href="https://www.youtube.com/embed/yTE-8UC-dSg" target="_blank" class="saiba-mais-button low">Assistir Vídeo →</a>
-                    </div>
-                    <div class="alert-card low">
-                        <h3>Nível Baixo: Mais Informações</h3>
-                        <p>A Conexa Saúde oferece um guia completo sobre baixa autoestima, abordando suas causas, sinais e estratégias para superá-la, incluindo a relação com a falta de motivação e as alterações de humor.</p>
-                        <a href="https://www.conexasaude.com.br/blog/baixa-autoestima/" target="_blank" class="saiba-mais-button low">Saiba Mais →</a>
-                    </div>
-                </div>
-                <div class="alert-column">
-                    <div class="alert-card medium">
-                        <h3>Nível Médio: Pontos de Alerta</h3>
-                        <ul>
-                            <li>Ansiedade persistente</li>
-                            <li>Dificuldade de<br>concentração</li>
-                            <li>Insônia recorrente</li>
-                        </ul>
-                    </div>
-                    <div class="alert-card medium">
-                        <h3>Nível Médio: Vídeo Informativo</h3>
-                        <div class="video-responsive">
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/rIMnFdTsesk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                        </div>
-                        <p>Este vídeo apresenta cinco sinais de ansiedade e enumera situações do dia a dia, incluindo a dificuldade de concentração. Também indica procurar ajuda caso você se identifique com esses sinais. O canal oferece vários outros vídeos que podem ajudar a identificar essas situações e melhorar a saúde mental.</p>
-                        <a href="https://www.youtube.com/embed/rIMnFdTsesk" target="_blank" class="saiba-mais-button medium">Assistir Vídeo →</a>
-                    </div>
-                    <div class="alert-card medium">
-                        <h3>Nível Médio: Mais Informações</h3>
-                        <p>O Manual MSD oferece informações detalhadas sobre o Transtorno de Ansiedade Generalizada (TAG), incluindo seus sintomas como ansiedade persistente, dificuldade de concentração e distúrbios do sono, além de orientações para o diagnóstico.</p>
-                        <a href="https://www.msdmanuals.com/pt/casa/dist%C3%BArbios-de-sa%C3%BAde-mental/transtorno-de-ansiedade-generalizada" target="_blank" rel="noopener noreferrer" class="saiba-mais-button medium">Saiba Mais →</a>
-                    </div>
-                </div>
-                <div class="alert-column">
-                    <div class="alert-card high">
-                        <h3>Nível Alto: Pontos de Alerta</h3>
-                        <ul>
-                            <li>Pensamentos intrusivos</li>
-                            <li>Isolamento social severo</li>
-                            <li>Alterações drásticas de<br>comportamento</li>
-                        </ul>
-                    </div>
-                    <div class="alert-card high">
-                        <h3>Nível Alto: Vídeo Informativo</h3>
-                        <div class="video-responsive">
-                            <iframe src="https://www.youtube.com/embed/Mb714QzDVuY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                        </div>
-                        <p>Este vídeo aborda sinais de alerta importantes. Se você se identifica com essas situações, é crucial procurar ajuda médica urgente. Assista a este vídeo para entender os sinais e saber quando agir.</p>
-                        <a href="https://www.youtube.com/embed/Mb714QzDVuY" target="_blank" class="saiba-mais-button high">Assistir Vídeo →</a>
-                    </div>
-                    <div class="alert-card high">
-                        <h3>Nível Alto: Mais Informações</h3>
-                        <p>A Qualicorp explica os sinais de alerta sobre a saúde mental, incluindo a importância de identificar mudanças de comportamento, isolamento e pensamentos negativos persistentes, e a necessidade de buscar ajuda.</p>
-                        <a href="https://www.qualicorp.com.br/qualicorp-explica/saude-e-bem-estar/sinais-de-alerta-sobre-a-saude-mental/" target="_blank" class="saiba-mais-button high">Saiba Mais →</a>
-                    </div>
-                </div>
-            </div>
+
+        <section id="produtos-section" class="h-[100vh] bg-green-50 flex items-center justify-center p-8 mb-4 rounded-lg shadow-md">
+            <h2 class="text-3xl font-bold text-green-800">Seção: Produtos e Serviços</h2>
         </section>
-        <hr>
-        <section id="mental-health-tips">
-            <h2>Dicas para Cuidar da Saúde Mental – Anamnese</h2>
-            <p>Manter uma boa saúde mental é essencial. Pequenas atitudes diárias podem fazer uma grande diferença. Pratique exercícios físicos, tenha uma alimentação balanceada e busque hobbies que lhe tragam prazer.</p>
-            <p>Priorize o sono de qualidade, reserve tempo para relaxar e se conectar com amigos e familiares. Não hesite em buscar ajuda profissional se sentir que precisa de suporte. Cuidar da sua mente é um ato de amor-próprio.</p>
-            <h3 id="tips-strategies">Dicas e estratégias para elevar a autoestima</h3>
-            <p>Elevar a autoestima é um processo contínuo que envolve práticas de autoconhecimento e desenvolvimento pessoal. Aqui estão algumas estratégias práticas que podem ajudar a fortalecer a autoestima e promover uma visão mais positiva de si mesmo:</p>
-            <ul>
-                <li><strong>Alimentação Saudável:</strong> Manter uma dieta balanceada não só nutre o corpo, mas também tem um impacto positivo no humor e na energia.</li>
-                <li><strong>Higiene do Sono:</strong> Dormir adequadamente é crucial para a saúde mental. Crie uma rotina de sono que permita um descanso reparador.</li>
-                <li><strong>Atividades Relaxantes:</strong> Encontre tempo para atividades que você gosta, como ler, ouvir música, meditar ou tomar um banho relaxante.</li>
-            </ul>
-            <p>Se as estratégias acima não são suficientes para melhorar a autoestima ou se a baixa autoestima está afetando significativamente sua vida diária, é importante buscar auxílio médico especializado.</p>
-            <h3 id="other-tips">Outras Dicas Importantes para o Bem-Estar Mental</h3>
-            <ul>
-                <li><strong>Limitar Exposição a Notícias Negativas:</strong> Este esteja informado, mas evite o consumo excessivo de notícias e conteúdos nas redes sociais que causam ansiedade ou angústia. Selecione suas fontes e faça pausas digitais.</li>
-                <li><strong>Permita-se Sentir:</strong> É importante aceitar e processar todas as suas emoções, sejam elas positivas ou negativas. Reprimir sentimentos pode ser prejudicial à saúde mental.</li>
-                <li><strong>Tenha Metas Realistas:</strong> Estabelecer objetivos alcançáveis e celebrar pequenas conquistas pode aumentar a sensação de propósito e autoeficácia, contribuindo para uma boa saúde mental.</li>
-                <li><strong>Esteja em Contato com a Natureza:</strong> Passar tempo ao ar livre e em ambientes naturais pode ter um efeito calmante e restaurador na mente, helping a reduzir o estresse e a melhorar o humor.</li>
-                <li><strong>Práticas de Relaxamento e Mindfulness:</strong> Dedique um tempo para atividades que acalmam a mente. Isso pode incluir meditação guiada, exercícios de respiração profunda, yoga suave ou simplesmente momentos de silêncio para focar no presente. A prática regular ajuda a reduzir o estresse e a aumentar a clareza mental.</li>
-                <li><strong>Crie uma Rotina de Autocuidado:</strong> Inclua no seu dia a dia momentos dedicados exclusivamente a você. Pode ser ler um livro, ouvir música, tomar um chá, ou qualquer atividade que promova seu bem-estar e recarregue suas energias.</li>
-            </ul>
-            <h3 id="mental-health-tutorial">Tutorial de como cuidar da saúde mental</h3>
-            <p>Esta seção oferece um guia inicial para você explorar e utilizar os recursos do site <a href="https://www.psymeetsocial.com/" target="_blank" rel="noopener noreferrer">Psymeetsocial.com</a>. A plataforma PsyMeet proporciona um meio simples e direto de contatar psicólogos profissionais, permitindo que você encontre o especialista ideal para sua demanda e agende seu atendimento imediatamente. O suporte profissional de
-            psicólogos é acessível de forma online, proporcionando atendimento no conforto do seu lar, sem a necessidade de deslocamento.</p>
-            <h4>Como começar sua terapia online:</h4>
-            <ol>
-                <li><strong>Procure um psicólogo de acordo com sua demanda</strong></li>
-                <li><strong>Clique no botão do WhatsApp no perfil do psicólogo</strong></li>
-                <li><strong>Combinem juntos os detalhes do atendimento</strong></li>
-                <li><strong>Faça a sessão no seu computador ou dispositivo móvel</strong></li>
-            </ol>
-            <p><strong><em>Importante: A plataforma PsyMeet não oferece suporte imediato para pessoas que estão tendo crises suicidas. Em casos de emergência, procure um serviço de atendimento de urgência ou ligue para o CVV (Centro de Valorização da Vida) no número 188.</em></strong></p>
-            <a href="https://www.psymeetsocial.com/" target="_blank" rel="noopener noreferrer" class="button-link">Saiba Mais no Psymeetsocial.com</a>
+
+        <section id="config-section" class="h-[100vh] bg-yellow-50 flex items-center justify-center p-8 mb-4 rounded-lg shadow-md">
+            <h2 class="text-3xl font-bold text-yellow-800">Seção: Configurações</h2>
         </section>
-        <hr>
-            <section id="articles-content">
-                <h2>Artigos e Conteúdos Relacionados</h2>
-                <p>
-                Explore nossa biblioteca de artigos e outros materiais. Oferecemos leituras aprofundadas sobre diversos temas, desde técnicas de relaxamento até discussões sobre transtornos comuns. Nosso objetivo é fornecer informação clara e confiável para você.
-                </p>
-                <ul>
-                    <li>Site: <a href="https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/s/saude-mental" target="_blank" rel="noopener noreferrer">Saúde Mental (gov.br)</a></li>
-                    <li>Artigo: <a href="https://saude.abril.com.br/mente-corpo/meditacao-traz-beneficios-comprovados-para-a-saude-mental/" target="_blank" rel="noopener noreferrer">Os Benefícios da Meditação para a Saúde Física e Mental</a></li>
-                    <li>E-book: <a href="https://ufla.br/images/arquivos/2021/CartilhaSaudeMentalUFLA.pdf" target="_blank" rel="noopener noreferrer">Saúde Mental: Como Manter ou Conquistá-la</a></li>
-                    <li>Podcast: <a href="https://www.google.com/search?q=https://open.spotify.com/show/4Nn0yv19yIkk0WvJyU0wcT" target="_blank" rel="noopener noreferrer">Conversas sobre Ansiedade (Spotify)</a></li>
-                    <li>Podcast (YouTube): <a href="http://www.youtube.com/watch?v=TNRakxWaXXo" target="_blank" rel="noopener noreferrer">PODCAST | Saúde mental - Brasil Escola (YouTube)</a></li>
-                </ul>
-            </section>
-            <hr>
-            <section id="conclusion">
-                <h2>Considerações Finais</h2>
-                <p>Esperamos que esta página tenha sido útil para você. Lembre-se de que a saúde mental é uma jornada contínua e que a busca por conhecimento e apoio é um passo fundamental. Estamos aqui para te auxiliar.</p>
-                <p><i>SITE NÃO ABSOLUTO. PROCURE UM PROFISSIONAL ESPECIALIZADO NA ÁREA PARA MELHOR RESOLUÇÃO DO SEU PROBLEMA.</i></p>
-            </section>
-            <div class="feedback-button-container">
-                <a href="Https://forms.gle/zqLM34y6MonoyCMy9" target="_blank" rel="noopener noreferrer" class="feedback-button">
-                    <i class="fas fa-thumbs-up"></i> <span class="feedback-text">Feedback</span>
-                </a>
-            </div>
-        </main>
-    </div>
-    <footer>
-        <p>Desenvolvido com foco no bem-estar mental.</p>
-        <p>
-            Links de Referência:
-            <a href="https://www.gettyimages.com.br/ilustra%C3%A7%C3%B5es/sa%C3%BAde-mental" target="_blank"><i class="fas fa-image"></i> Getty Images - Saúde Mental</a> |
-            <a href="https://webaim.org/resources/contrastchecker/" target="_blank"><i class="fas fa-palette"></i> WebAIM - Contrast Checker</a> |
-            <a href="https://g1.globo.com/trabalho-e-carreira/noticia/2025/03/10/crise-de-saude-mental-brasil-tem-maior-numero-de-afastamentos-por-ansiedade-e-depress%C3%A3o-em-10-anos.ghtml" target="_blank" rel="noopener noreferrer"><i class="fas fa-newspaper"></i> G1 - Crise de Saúde Mental</a> |
-            <a href="https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/s/saude-mental" target="_blank" rel="noopener noreferrer"><i class="fas fa-globe"></i> Saúde Mental (gov.br)</a> |
-            <a href="https://saude.abril.com.br/mente-corpo/meditacao-traz-beneficios-comprovados-para-a-saude-mental/" target="_blank" rel="noopener noreferrer"><i class="fas fa-book-open"></i> Os Benefícios da Meditação para a Saúde Física e Mental</a> |
-            <a href="https://www.google.com/search?q=https://open.spotify.com/show/4Nn0yv19yIkk0WvJyU0wcT" target="_blank" rel="noopener noreferrer"><i class="fas fa-headphones-alt"></i> Conversas sobre Ansiedade (Spotify)</a> |
-            <a href="http://www.youtube.com/watch?v=TNRakxWaXXo" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i> PODCAST | Saúde mental - Brasil Escola (YouTube)</a>
-        </p>
-        <p>© 2025. Todos os direitos reservados.</p>
-    </footer>
+
+        <section id="faq-section" class="h-[100vh] bg-red-50 flex items-center justify-center p-8 mb-4 rounded-lg shadow-md">
+            <h2 class="text-3xl font-bold text-red-800">Seção: FAQ</h2>
+        </section>
+        
+        <section id="contato-section" class="h-[100vh] bg-purple-50 flex items-center justify-center p-8 mb-4 rounded-lg shadow-md">
+            <h2 class="text-3xl font-bold text-purple-800">Seção: Contato</h2>
+        </section>
+        
+        <section id="extras-section" class="h-[100vh] bg-indigo-50 flex items-center justify-center p-8 mb-4 rounded-lg shadow-md">
+            <h2 class="text-3xl font-bold text-indigo-800">Seção: Extras e Detalhes Longos</h2>
+        </section>
+        
+        <section id="final-section" class="h-[100vh] bg-gray-300 flex items-center justify-center p-8 mb-4 rounded-lg shadow-md">
+            <h2 class="text-3xl font-bold text-gray-800">Seção: Final da Página</h2>
+        </section>
+
+    </main>
+
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-    const header = document.querySelector('header');
-    const relatedContentSection = document.querySelector('.related-content-section');
-    const relatedItemsWrapper = document.querySelector('.related-items-wrapper');
-    const relatedItems = document.querySelectorAll('.related-item');
-    const sections = document.querySelectorAll('main section');
-    const menuToggle = document.getElementById('menuToggle');
-    const relatedItemsFixedContainer = document.querySelector('.related-items-fixed-container');
-    
-    let isMenuOpen = false;
+        // Elementos DOM
+        const header = document.getElementById('page-header');
+        const menuBar = document.getElementById('menu-bar');
+        const menuToggle = document.getElementById('menuToggle');
+        const sectionToggleBtn = document.getElementById('toggle-section-btn');
+        const sectionToggleIcon = document.getElementById('section-toggle-icon');
+        const floatingComponentContainer = document.getElementById('floating-component-container');
+        const relatedItemsWrapperContainer = document.getElementById('relatedItemsWrapperContainer'); 
+        const relatedItemsWrapper = document.getElementById('relatedItemsWrapper');
+        const mainContent = document.getElementById('main-content');
+        const relatedItems = document.querySelectorAll('.related-item');
+        const sections = document.querySelectorAll('section');
 
-    // --- FUNÇÃO PARA AJUSTAR O PADDING-TOP DO CONTEÚDO PRINCIPAL ---
-    // A função foi simplificada. O padding só é necessário quando o menu hambúrguer é aberto no mobile.
-    function adjustMainContentPadding() {
-        let calculatedPadding = 0;
+        // Constantes e Estado
+        const MOBILE_BREAKPOINT = 750;
+        let isSectionsExpanded = false; // Estado do toggle de Retração/Expansão Horizontal
         
-        // Se o menu hambúrguer estiver aberto (e estivermos em mobile/tablet)
-        if (window.innerWidth < 1020 && relatedItemsFixedContainer.classList.contains('open')) {
-            // Usa a altura da barra do menu horizontal + um pequeno espaçamento
-            calculatedPadding = relatedContentSection.offsetHeight + 10; 
-        } else {
-            // Remove o padding para que o CSS base assuma o controle.
-            calculatedPadding = 0; 
-        }
 
-        // Atualiza a variável CSS.
-        document.documentElement.style.setProperty('--fixed-menu-offset', `${calculatedPadding}px`);
-    }
-
-    // --- LÓGICA DO MENU HAMBÚRGUER (MOBILE) ---
-    function setupMenuToggleListener() {
-        if (window.innerWidth < 750 && menuToggle && relatedItemsFixedContainer) {
-            if (!menuToggle.hasAttribute('data-listener-added')) {
-                menuToggle.addEventListener('click', handleMenuToggleClick);
-                menuToggle.setAttribute('data-listener-added', 'true');
-            }
-        } else {
-            if (menuToggle && menuToggle.hasAttribute('data-listener-added')) {
-                menuToggle.removeEventListener('click', handleMenuToggleClick);
-                menuToggle.removeAttribute('data-listener-added');
-                isMenuOpen = false;
-                relatedItemsFixedContainer.classList.remove('open');
-                // Limpa estilos inline ao sair do modo mobile
-                relatedItemsFixedContainer.style.maxHeight = ''; 
-                relatedItemsFixedContainer.style.display = '';
-            }
-        }
-    }
-    
-    function handleMenuToggleClick() {
-        isMenuOpen = !isMenuOpen;
+        // ======================================================================
+        // 1. Lógica do Toggle de Seções (Ocultar/Desocultar horizontal)
+        // ======================================================================
         
-        if (isMenuOpen) {
-            relatedItemsFixedContainer.style.display = 'flex'; 
-            relatedItemsFixedContainer.offsetWidth; 
-            relatedItemsFixedContainer.classList.add('open');
-            // Altura da barra do menu
-            relatedItemsFixedContainer.style.maxHeight = `${relatedContentSection.offsetHeight}px`; 
-        } else {
-            relatedItemsFixedContainer.classList.remove('open');
-            relatedItemsFixedContainer.style.maxHeight = '0';
-            setTimeout(() => {
-                relatedItemsFixedContainer.style.display = 'none';
-            }, 300);
-        }
-        adjustMainContentPadding();
-    }
-
-    // --- LÓGICA DE ESCONDER CABEÇALHO (REMOVIDA) ---
-    // A função handleScroll() foi removida.
-    // O recurso de esconder o header e fixar o menu dependem de window.scrollY e não funcionarão.
-
-    // --- IntersectionObserver para Destaque da Seção Ativa e Rolagem Horizontal ---
-    const observerOptions = {
-        root: null,
-        // Ajustamos a margem de intersecção para detectar a seção um pouco antes de chegar ao topo
-        rootMargin: '-10% 0px -60% 0px', 
-        threshold: 0 
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                // Remove a classe 'active' de todos
-                relatedItems.forEach(item => {
-                    item.classList.remove('active');
-                });
-                
-                // Adiciona 'active' ao item correspondente
-                const activeNavItem = document.querySelector(`.related-item[data-section="${entry.target.id}"]`);
-                if (activeNavItem) {
-                    activeNavItem.classList.add('active');
-                    
-                    // Rolagem automática horizontal para o item ativo (apenas em mobile/tablet)
-                    if (window.innerWidth < 1020) { 
-                        const itemRect = activeNavItem.getBoundingClientRect();
-                        const wrapperRect = relatedItemsWrapper.getBoundingClientRect();
-                        // Centraliza o item
-                        const scrollLeft = activeNavItem.offsetLeft - (wrapperRect.width / 2) + (itemRect.width / 2);
-                        relatedItemsWrapper.scrollTo({
-                            left: scrollLeft,
-                            behavior: 'smooth'
-                        });
-                    }
+        const closeSections = () => {
+            floatingComponentContainer.classList.remove('expanded');
+            floatingComponentContainer.classList.add('retracted');
+            sectionToggleIcon.querySelector('path').setAttribute('d', "M19 9l-7 7-7-7"); // Seta para baixo
+            isSectionsExpanded = false;
+        };
+        
+        const openSections = () => {
+            floatingComponentContainer.classList.remove('retracted');
+            floatingComponentContainer.classList.add('expanded');
+            sectionToggleIcon.querySelector('path').setAttribute('d', "M5 15l7-7 7 7"); // Seta para cima
+            isSectionsExpanded = true;
+        };
+        
+        const handleSectionToggleClick = () => {
+            if (window.innerWidth < MOBILE_BREAKPOINT) {
+                if (isSectionsExpanded) {
+                    closeSections();
+                } else {
+                    openSections();
                 }
             }
+        };
+
+        sectionToggleBtn.addEventListener('click', handleSectionToggleClick);
+
+        // Lógica de clique em item: rolar para a seção e fechar o menu (no mobile)
+        relatedItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                const targetId = item.dataset.section;
+                const targetSection = document.getElementById(targetId);
+
+                if (targetSection) {
+                    // Desloca um pouco para compensar o menu fixo
+                    const offset = menuBar.offsetHeight;
+                    const targetPosition = targetSection.offsetTop - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+
+                // REMOÇÃO DA FUNÇÃO DE AUTO-OCULTAÇÃO:
+                // O menu não se fechará mais após o clique para permitir navegação rápida.
+                /*
+                if (window.innerWidth < MOBILE_BREAKPOINT && isSectionsExpanded) {
+                    closeSections();
+                }
+                */
+            });
         });
-    }, observerOptions);
 
-    sections.forEach(section => {
-        observer.observe(section);
-    });
+        // ======================================================================
+        // 2. Lógica de Fixação (position: fixed) e Ajuste de Conteúdo
+        // ======================================================================
 
-    // --- ROLAGEM DOS BOTÕES (RESTAURADA PARA COMPORTAMENTO NATIVO) ---
-    relatedItems.forEach(item => {
-        item.addEventListener('click', function(event) {
-            // Removemos event.preventDefault() e window.scrollTo().
-            // Isso permite que o navegador use o link de âncora nativo (href="#id").
-            // O fechamento do menu deve ser feito ANTES que a rolagem nativa ocorra.
-            
-            // Fechar o menu hambúrguer após o clique (apenas para mobile)
-            if (window.innerWidth < 750 && isMenuOpen) {
-                isMenuOpen = false;
-                relatedItemsFixedContainer.classList.remove('open');
-                relatedItemsFixedContainer.style.maxHeight = '0';
-                // Removemos o setTimeout para não interferir na rolagem
-                relatedItemsFixedContainer.style.display = 'none';
+        const adjustMainContentPadding = () => {
+            if (window.innerWidth < MOBILE_BREAKPOINT && menuBar.classList.contains('fixed-on-top-small-screens')) {
+                const offset = menuBar.offsetHeight; 
+                mainContent.style.setProperty('--fixed-menu-offset', `${offset}px`);
+            } else {
+                mainContent.style.setProperty('--fixed-menu-offset', `0px`);
             }
-        });
-    });
+        };
 
-    // --- Chamadas Iniciais e Listeners ---
-    // Removemos window.addEventListener('scroll', handleScroll);
-    
-    // Listener para redimensionamento da janela
-    window.addEventListener('resize', () => {
-        // Removemos handleScroll()
-        setupMenuToggleListener();
-        adjustMainContentPadding();
+        const handleScroll = () => {
+            const scrollY = window.scrollY;
+            const headerHeight = header.offsetHeight;
+            const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
+
+            if (isMobile) {
+                if (scrollY > headerHeight) {
+                    if (!menuBar.classList.contains('fixed-on-top-small-screens')) {
+                        menuBar.classList.add('fixed-on-top-small-screens');
+                        adjustMainContentPadding(); 
+                    }
+                } else {
+                    if (menuBar.classList.contains('fixed-on-top-small-screens')) {
+                        menuBar.classList.remove('fixed-on-top-small-screens');
+                        adjustMainContentPadding(); 
+                    }
+                }
+            } else {
+                menuBar.classList.remove('fixed-on-top-small-screens');
+                adjustMainContentPadding();
+            }
+        };
+
+        // Roda a lógica de fixação no scroll
+        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('load', handleScroll);
+        window.addEventListener('resize', handleScroll);
+
+
+        // ======================================================================
+        // 3. Destaque do Item Ativo & Rolagem Horizontal Automática
+        // ======================================================================
+
+        const highlightActiveItem = (id) => {
+            let activeItem = null;
+            relatedItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.dataset.section === id) {
+                    item.classList.add('active');
+                    activeItem = item;
+                }
+            });
+            
+            // Rola o menu horizontalmente APENAS se estiver expandido
+            if (activeItem && window.innerWidth < MOBILE_BREAKPOINT && isSectionsExpanded) {
+                 scrollToActiveItem(activeItem);
+            }
+        };
         
-        // Limpar estilos inline do JS para que o CSS assuma o controle.
-        if (window.innerWidth >= 750) {
-            relatedItemsFixedContainer.style.maxHeight = '';
-            relatedItemsFixedContainer.style.display = '';
-            relatedItemsFixedContainer.classList.remove('open');
-            isMenuOpen = false;
-        }
-    });
+        const scrollToActiveItem = (activeItem) => {
+            const isSmallScreen = window.innerWidth < 1020; 
 
-    // Chamadas iniciais
-    // Removemos handleScroll();
-    setupMenuToggleListener();
-    adjustMainContentPadding();
-    
-    // Ativa o primeiro item do menu se nenhum estiver ativo na carga
-    if (sections.length > 0 && !document.querySelector('.related-item.active')) {
-        const firstSectionId = sections[0].id;
-        const firstNavItem = document.querySelector(`.related-item[data-section="${firstSectionId}"]`);
-        if (firstNavItem) {
-            firstNavItem.classList.add('active');
-        }
-    }
-});
+            if (isSmallScreen) {
+                const wrapperWidth = relatedItemsWrapperContainer.offsetWidth;
+                const itemOffsetLeft = activeItem.offsetLeft;
+                const itemWidth = activeItem.offsetWidth;
+                
+                const scrollPosition = itemOffsetLeft - (wrapperWidth / 2) + (itemWidth / 2);
+                
+                relatedItemsWrapper.scrollTo({
+                    left: scrollPosition,
+                    behavior: 'smooth'
+                });
+            }
+        };
+
+        // Opções do Intersection Observer: Detecta quando a seção está no centro da viewport
+        const observerOptions = {
+            root: null, 
+            rootMargin: `-50% 0px -50% 0px`, 
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    highlightActiveItem(entry.target.id);
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+        
+        // Garante que o menu comece retraído e com o estilo correto ao carregar e redimensionar
+        window.addEventListener('load', closeSections);
+        window.addEventListener('resize', closeSections);
+        
     </script>
 </body>
 </html>
+
