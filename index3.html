@@ -244,7 +244,7 @@ footer p:last-of-type { display: flex; flex-wrap: wrap; justify-content: center;
 .button-link:hover { background-color: #218838; transform: translateY(-2px); }
 
 /* =========================================
-   MEDIA QUERIES (Responsividade)
+   MEDIA QUERIES (Responsividade Mobile/Tablet)
    ========================================= */
 
 /* --- MOBILE & TABLET UNIFICADOS (< 1020px) --- */
@@ -258,71 +258,72 @@ footer p:last-of-type { display: flex; flex-wrap: wrap; justify-content: center;
         margin-top: 0;
     }
 
-    /* Wrapper externo */
+    /* Wrapper externo (Estado normal/estático) */
     .related-content-section {
-        background-color: transparent !important;
+        background-color: transparent !important; 
+        border: none !important;
+        box-shadow: none !important;
+        height: auto !important; 
+        overflow: visible !important; 
         width: 100%;
-        height: auto;
-        min-height: 60px; 
-        z-index: 9999; 
+        z-index: 9999;
         display: flex;
         justify-content: center;
-        
-        /* ALTERAÇÃO 1: Padding Zero para encostar nas bordas */
-        padding: 0; 
-        
-        box-sizing: border-box;
-        transition: padding 0.3s ease;
+        padding: 10px 0;
         position: static;
-        border: none;
         border-radius: 0;
         pointer-events: none; 
     }
 
-    /* Estado FIXO (Quando rola a página) */
+    /* --- ESTADO FIXO NO TOPO (Quando rola a página) --- */
     .related-content-section.fixed-on-top-small-screens {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
+        padding-top: 10px;
         
-        /* ALTERAÇÃO 2: Removemos padding superior no modo fixo também */
-        padding-top: 0; 
+        /* ============================================================
+           1. ALTERE AQUI PARA O FUNDO FICAR 100% TRANSPARENTE
+           ============================================================ */
+        /* Atualmente: rgba(247, 247, 247, 0.0) - tem um pouco de cor. */
+        /* Para 100% transparente, mude para: background-color: transparent; */
+        /* Se quiser remover o "embaçado" também, apague a linha backdrop-filter */
+        background-color: rgba(247, 247, 247, 0.85);
         
-        /* ALTERAÇÃO 3: Transparência total (sem blur, sem cor de fundo) */
-        background-color: transparent; 
-        backdrop-filter: none; 
-        border-bottom: none;
+        
+        border-bottom: 1px solid rgba(0,0,0,0.05);
     }
 
     .related-content-section.fixed-on-top-small-screens > * {
         pointer-events: auto;
     }
 
-    /* O Container da Barra */
+    /* --- O MENU FLUTUANTE (A Pílula) --- */
     #floating-component-container {
-        /* ALTERAÇÃO 4: Largura 100% (Encostado nas bordas) */
-        width: 100%; 
-        min-width: 100px;
         
+        /* ============================================================
+           2. ALTERE AQUI PARA O MENU OCUPAR 100% DA LATERAL
+           ============================================================ */
+        /* Atualmente: 95% (para parecer flutuante com margem). */
+        /* Mude para: width: 100%; */
+        width: 97%;
+        
+        min-width: 100px;
         height: var(--button-height); 
         max-height: var(--button-height);
         
         background-color: transparent;
         
-        /* ALTERAÇÃO 5: Remove bordas arredondadas para encaixar nos cantos */
-        border-radius: 0; 
+        /* DICA: Se colocar width: 100%, talvez queira mudar border-radius para 0 aqui também */
+        border-radius: 0;
         
         overflow: visible; 
         position: relative;
         display: flex;
         flex-wrap: nowrap;
-        
-        /* ALTERAÇÃO 6: Remove a sombra para ficar "limpo" e transparente */
-        filter: none; 
-        box-shadow: none;
-        
-        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15));
+        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), filter 0.3s ease;
         pointer-events: auto; 
     }
 
@@ -332,25 +333,20 @@ footer p:last-of-type { display: flex; flex-wrap: wrap; justify-content: center;
         animation: none !important;
     }
 
-    /* Expansão Vertical */
+    /* --- MODO VERTICAL (EXPANDIDO) --- */
     #floating-component-container.vertical-expanded {
         height: auto !important; 
         max-height: 800px; 
-        background-color: transparent; /* Mantém fundo transparente ao expandir */
     }
 
     /* --- BOTÕES ESQUERDA/DIREITA --- */
-    /* Mantivemos o fundo branco APENAS nos botões para serem visíveis */
     #menuToggle {
         position: absolute; left: 0; top: 0;
         height: var(--button-height); width: var(--button-height);
-        background-color: #fff; /* Botão continua branco para contraste */
+        background-color: #fff;
         display: flex; align-items: center; justify-content: center;
         cursor: pointer; z-index: 30;
-        
-        /* Remove curvas do lado esquerdo para encostar na tela */
-        border-radius: 0 var(--border-radius-inner) var(--border-radius-inner) 0;
-        
+        border-radius: var(--border-radius-outer) var(--border-radius-inner) var(--border-radius-inner) var(--border-radius-outer);
         transition: border-radius 0.3s;
         border-right: 1px solid #e5e7eb;
         color: #333;
@@ -360,30 +356,29 @@ footer p:last-of-type { display: flex; flex-wrap: wrap; justify-content: center;
     #toggle-section-btn {
         position: absolute; right: 0; top: 0;
         height: var(--button-height); width: var(--button-height);
-        background-color: #fff; /* Botão continua branco */
+        background-color: #fff;
         display: flex; align-items: center; justify-content: center;
         cursor: pointer; z-index: 30;
         transition: border-radius 0.3s ease, background-color 0.3s, transform 0.3s;
-        
-        /* Remove curvas do lado direito para encostar na tela */
-        border-radius: var(--border-radius-inner) 0 0 var(--border-radius-inner);
+        border-radius: var(--border-radius-inner) var(--border-radius-outer) var(--border-radius-outer) var(--border-radius-inner);
     }
 
     /* --- ESTADO RETRAÍDO --- */
     .retracted #menuToggle { border-right: none !important; }
 
-    /* Removemos a "aba" decorativa superior pois agora é tela cheia */
     .retracted::before {
-        display: none; 
+        content: ''; position: absolute; top: 0; left: 25px; right: 25px;
+        height: var(--strip-height); background-color: #ffffff;
+        border-radius: 8px 8px 0 0; z-index: 25;
     }
 
     /* --- MUDANÇAS VISUAIS NOS ESTADOS --- */
-    .expanded #menuToggle { border-radius: 0; }
+    .expanded #menuToggle { border-radius: var(--border-radius-outer) 0 0 var(--border-radius-outer); }
     .expanded #toggle-section-btn { transform: translateY(100%); border-radius: 0 0 var(--border-radius-outer) var(--border-radius-outer); background-color: #f9fafb; }
     .expanded::before { opacity: 0; transform: translateY(-100%); }
 
-    .vertical-expanded #menuToggle { border-radius: 0 !important; border-bottom: 1px solid #f3f4f6; }
-    .vertical-expanded #toggle-section-btn { transform: translateY(0) !important; border-radius: 0 !important; background-color: #fff; border-bottom: 1px solid #f3f4f6; }
+    .vertical-expanded #menuToggle { border-radius: var(--border-radius-outer) 0 0 var(--border-radius-outer) !important; border-bottom: 1px solid #f3f4f6; }
+    .vertical-expanded #toggle-section-btn { transform: translateY(0) !important; border-radius: 0 var(--border-radius-outer) 0 0 !important; background-color: #fff; border-bottom: 1px solid #f3f4f6; }
 
     /* --- CONTEÚDO INTERNO --- */
     #relatedItemsWrapperContainer {
@@ -392,19 +387,16 @@ footer p:last-of-type { display: flex; flex-wrap: wrap; justify-content: center;
         transition: opacity 0.3s ease, right 0.3s ease, border-radius 0.3s ease, height 0.4s ease;
         opacity: 0; border-radius: 0;
     }
-    .expanded #relatedItemsWrapperContainer { opacity: 1; right: 0; border-radius: 0; }
+    .expanded #relatedItemsWrapperContainer { opacity: 1; right: 0; border-radius: 0 var(--border-radius-outer) 0 0; }
     
     .vertical-expanded #relatedItemsWrapperContainer {
         height: auto; 
         min-height: 100%; 
         right: 0;
-        border-radius: 0; /* Reto nas bordas */
+        border-radius: 0 var(--border-radius-outer) var(--border-radius-outer) var(--border-radius-outer);
         z-index: 20; padding-bottom: 0;
         border-left: 1px solid #f3f4f6;
         overflow: visible; 
-        
-        /* Fundo branco para o conteúdo expandido (para leitura), mas a barra fechada é transparente */
-        background-color: #fff; 
     }
 
     .related-items-wrapper {
@@ -445,18 +437,21 @@ footer p:last-of-type { display: flex; flex-wrap: wrap; justify-content: center;
         letter-spacing: 0.05em; pointer-events: none; opacity: 0;
         transform: translateY(-10px); transition: opacity 0.3s ease, transform 0.3s ease;
         z-index: 25; border-bottom: 1px solid #f3f4f6;
-        background-color: #fff; /* Título precisa de fundo para leitura */
     }
     .vertical-expanded #expanded-title { opacity: 1; transform: translateY(0); }
 
     /* --- MODO ESTÁTICO --- */
     .static-mode #toggle-section-btn { display: none !important; } 
-    .static-mode #relatedItemsWrapperContainer { right: 0 !important; border-radius: 0 !important; }
-    .static-mode #floating-component-container { border-radius: 0 !important; }
-    .static-mode #menuToggle { border-radius: 0 !important; }
+    .static-mode #relatedItemsWrapperContainer { right: 0 !important; border-radius: 0 var(--border-radius-outer) var(--border-radius-outer) 0 !important; }
+    .static-mode #floating-component-container { border-radius: var(--border-radius-outer) !important; }
+    .static-mode #menuToggle { border-radius: var(--border-radius-outer) 0 0 var(--border-radius-outer) !important; }
 
+    /* Reset de estilos antigos */
     .related-content-section h2:not(#expanded-title) { display: none; }
     
+    /* Ajuste para mostrar o botão extra (right-action-button) se existir no HTML */
+    .right-action-button { display: block; }
+
     .main-content-section {
         padding-top: var(--fixed-menu-offset, 40px);
         padding-left: 20px; 
@@ -504,6 +499,7 @@ footer p:last-of-type { display: flex; flex-wrap: wrap; justify-content: center;
         width: 90%;
     }
 }
+
 
 
 /* --- DESKTOP PEQUENO (1020px - 1159px) --- */
