@@ -32,7 +32,7 @@ body {
     --fixed-menu-offset: 0px; 
 }
 
-/* -------------------- NOVAS CLASSES PARA O JAVASCRIPT -------------------- */
+/* -------------------- CLASSES JS -------------------- */
 .hidden-on-scroll {
     opacity: 0;
     visibility: hidden;
@@ -56,7 +56,7 @@ header,
 .related-content-section h2 {
     transition: all 0.3s ease-out;
 }
-/* -------------------- FIM DAS NOVAS CLASSES -------------------- */
+/* -------------------- FIM CLASSES JS -------------------- */
 
 header {
     background-color: #e0f2f7;
@@ -130,7 +130,7 @@ header {
     display: none;
 }
 
-/* --- ESTILIZAÇÃO PADRÃO DOS ITENS DE MENU --- */
+/* --- ITEM DE MENU PADRÃO --- */
 .related-item {
     flex-shrink: 0;
     padding: 25px 10px;
@@ -183,7 +183,7 @@ header {
     display: none;
 }
 
-/* --- Main Content Section --- */
+/* --- CONTEÚDO PRINCIPAL --- */
 .main-content-section {
     flex-grow: 1;
     padding: 160px;
@@ -221,6 +221,7 @@ header {
     line-height: 1.6;
 }
 
+/* --- GRÁFICOS E VÍDEOS --- */
 .intro-graphic-section {
     display: flex;
     align-items: flex-start;
@@ -265,7 +266,6 @@ header {
     text-align: justify;
 }
 
-/* -------------------- ESTILO PARA LINKS -------------------- */
 .source-info a,
 .related-content-section a {
     color: #666;
@@ -303,8 +303,8 @@ header {
 #articles-content ul li a:hover {
     text-decoration: underline;
 }
-/* -------------------- FIM DO ESTILO PARA LINKS -------------------- */
 
+/* --- CARDS DE ALERTA --- */
 .alert-cards-container {
     display: flex;
     justify-content: center;
@@ -436,38 +436,28 @@ header {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* --- ESTILOS ATUALIZADOS DO RODAPÉ --- */
+/* --- RODAPÉ --- */
 footer {
     background-color: #2c3e50;
     color: #ecf0f1;
-    
-    /* Padding generoso para não cortar conteúdo no mobile */
     padding: 2em 0 100px 0; 
-    
     text-align: center;
     font-size: 0.9em;
     margin-top: 30px;
     width: 100%; 
     overflow-x: hidden;
-    
-    /* IMPORTANTE: Position Relative para que o degradê funcione dentro dele */
     position: relative; 
 }
 
-/* --- DEGRADÊ NO FINAL DO RODAPÉ --- */
-/* Isso cria o efeito visual de "fim" na área de padding extra */
 footer::after {
     content: "";
     position: absolute;
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 100px; /* Mesma altura do padding extra */
-    
-    /* Degradê: Começa transparente (cor do footer) e vai escurecendo até o preto */
+    height: 100px; 
     background: linear-gradient(to bottom, transparent, #000000);
-    
-    pointer-events: none; /* Garante que não atrapalhe cliques */
+    pointer-events: none; 
 }
 
 footer p {
@@ -498,7 +488,7 @@ footer p:last-of-type {
     margin-top: 15px;
 }
 
-/* -------------------- ESTILOS PARA SEÇÕES ADICIONADAS -------------------- */
+/* --- ESTILOS TEXTUAIS --- */
 .main-content-section h3 {
     color: #4CAF50;
     border-bottom: 1px solid #DDD;
@@ -581,8 +571,8 @@ footer p:last-of-type {
    MEDIA QUERIES (Responsividade)
    ========================================= */
 
-/* --- MOBILE (< 750px) --- */
-@media (max-width: 749px) {
+/* --- MOBILE & TABLET UNIFICADOS (< 1020px) --- */
+@media (max-width: 1019px) {
     .outer-wrapper {
         flex-direction: column;
         margin: 0;
@@ -721,131 +711,22 @@ footer p:last-of-type {
         margin-bottom: 10px;
         display: inline-block;
     }
-}
-
-/* --- TABLET (750px - 1019px) --- */
-@media (min-width: 750px) and (max-width: 1019px) {
-    .main-content-section {
-        width: 100%;
-        padding: 20px;
-        margin-left: 0;
-        min-height: unset;
-        padding-top: var(--fixed-menu-offset, 40px);
-    }
-
-    header {
-        padding: 50px 20px;
-        text-align: right;
-        padding-right: 30px;
-        padding-left: 260px;
-    }
-
-    .logo-container {
-        position: static;
-        transform: none;
-        margin: 0 auto 20px auto;
-        width: 150px;
-        height: 150px;
-    }
-    .outer-wrapper {
-        flex-direction: column;
-        margin: 10px auto;
-        max-width: 95%;
-        justify-content: center;
-        min-height: unset;
-        margin-top: 0;
-    }
-    .related-content-section {
-        width: 100%;
-        position: static;
-        top: unset;
-        max-height: none;
-        border-right: none;
-        border-bottom: 1px solid #ddd;
-        border-radius: 8px 8px 0 0;
-        padding-bottom: 10px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        height: auto;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        background-color: #f0f0f0;
-        transition: box-shadow 0.3s ease;
-    }
-    .related-content-section .menu-toggle {
-        display: none;
-    }
-
-    .related-content-section.fixed-on-top-small-screens {
-        border-radius: 0;
-        padding: 10px 20px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 999;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-
-    .related-content-section h2 {
-        text-align: center;
-        margin-bottom: 15px;
-        width: 100%;
-        display: block;
-        visibility: visible;
-        height: auto;
-        margin-top: 0;
-        overflow: visible;
-    }
-    .related-items-fixed-container {
-        display: block;
-        position: static;
-        width: 100%;
-        box-shadow: none;
-        padding: 0;
-        border-top: none;
-        overflow-y: visible;
-        max-height: unset;
-        opacity: 1;
-        pointer-events: auto;
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-start;
-        transition: none;
-    }
-    .related-items-wrapper {
-        width: 100%;
-        display: flex;
-        justify-content: flex-start;
-        padding: 0 10px;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-        flex-direction: row;
-        align-items: center;
-    }
-    .related-items-wrapper::-webkit-scrollbar {
-        display: none;
-    }
-    .related-item {
-        margin-bottom: 5px;
-        margin-right: 10px;
-        font-size: 0.9em;
-        padding: 8px 12px;
-        flex-shrink: 0;
-        white-space: nowrap;
-        word-break: normal;
-        text-align: center;
-    }
+    
+    /* ALTERAÇÃO AQUI: Configuração dos cards para ocupar a largura total (empilhados) em Tablets e Celulares */
     .alert-cards-container {
+        gap: 0; 
+        justify-content: center;
         flex-direction: column;
-        align-items: center;
+        align-items: center; 
     }
+
     .alert-column {
-        width: 100%;
-        min-width: unset;
-        max-width: 400px;
+        width: 95%; /* Alinhamento largo e bonito */
+        min-width: unset; 
+        max-width: unset; /* Remove limitação de largura que causava o efeito "fino" */
+        margin-bottom: 20px; 
     }
+    
     .intro-graphic-section {
         flex-direction: column;
         align-items: center;
@@ -1254,21 +1135,8 @@ footer p:last-of-type {
     }
 }
 
-@media (max-width: 573px) {
-    .alert-cards-container {
-        gap: 0; 
-        justify-content: center;
-        flex-direction: column;
-        align-items: center; 
-    }
-
-    .alert-column {
-        width: 95%; 
-        min-width: unset; 
-        max-width: unset; 
-        margin-bottom: 20px; 
-    }
-}
+/* O bloco media query extra-pequeno que existia no final foi REMOVIDO
+   pois sua lógica agora está unificada no bloco < 1020px acima. */
  </style>
 
 </head>
@@ -1490,7 +1358,7 @@ footer p:last-of-type {
         let calculatedPadding = 0;
         const extraPadding = 20; 
 
-        // Se o menu está fixo em telas pequenas/médias
+        // Agora usamos 1020px como o ponto de corte para o design "Mobile/Tablet"
         if (window.innerWidth < 1020 && relatedContentSection.classList.contains('fixed-on-top-small-screens')) {
             calculatedPadding = relatedContentSection.offsetHeight + extraPadding;
         } else if (window.innerWidth >= 1020) {
@@ -1500,9 +1368,10 @@ footer p:last-of-type {
         document.documentElement.style.setProperty('--fixed-menu-offset', `${calculatedPadding}px`);
     }
 
-    // --- LÓGICA DO MENU HAMBÚRGUER (MOBILE) ---
+    // --- LÓGICA DO MENU HAMBÚRGUER (AGORA ATÉ 1019px) ---
     function setupMenuToggleListener() {
-        if (window.innerWidth < 750 && menuToggle && relatedItemsFixedContainer) {
+        // Alterado de 750 para 1020 para incluir tablets
+        if (window.innerWidth < 1020 && menuToggle && relatedItemsFixedContainer) {
             if (!menuToggle.hasAttribute('data-listener-added')) {
                 menuToggle.addEventListener('click', handleMenuToggleClick);
                 menuToggle.setAttribute('data-listener-added', 'true');
@@ -1556,6 +1425,7 @@ footer p:last-of-type {
         const headerBottom = header.offsetHeight; 
         const shouldBeFixed = currentScrollY > headerBottom; 
 
+        // Alterado para 1020px para abranger Tablets
         if (window.innerWidth < 1020) { 
             if (shouldBeFixed) {
                 if (!relatedContentSection.classList.contains('fixed-on-top-small-screens')) {
@@ -1592,6 +1462,7 @@ footer p:last-of-type {
                 const activeNavItem = document.querySelector(`.related-item[data-section="${entry.target.id}"]`);
                 if (activeNavItem) {
                     activeNavItem.classList.add('active');
+                    // Rolagem horizontal automática agora acontece até 1020px
                     if (window.innerWidth < 1020) { 
                         const itemRect = activeNavItem.getBoundingClientRect();
                         const wrapperRect = relatedItemsWrapper.getBoundingClientRect();
@@ -1628,7 +1499,8 @@ footer p:last-of-type {
                     }
                 }
                 
-                if (window.innerWidth < 750 && isMenuOpen) {
+                // Fecha o menu hambúrguer se estiver aberto (agora até 1020px)
+                if (window.innerWidth < 1020 && isMenuOpen) {
                     isMenuOpen = false;
                     relatedItemsFixedContainer.classList.remove('open');
                     relatedItemsFixedContainer.style.maxHeight = '0';
@@ -1653,7 +1525,8 @@ footer p:last-of-type {
         setupMenuToggleListener();
         adjustMainContentPadding(); 
 
-        if (window.innerWidth >= 750) {
+        // Limpa estilos inline se a tela for redimensionada para Desktop
+        if (window.innerWidth >= 1020) {
             relatedItemsFixedContainer.style.maxHeight = '';
             relatedItemsFixedContainer.style.display = '';
             relatedItemsFixedContainer.classList.remove('open');
